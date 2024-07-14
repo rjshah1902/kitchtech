@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2024 at 08:47 PM
+-- Generation Time: Jul 14, 2024 at 09:07 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -177,7 +177,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `contact`, `password`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Rahul Shah', 'rjshah1902', 'rjshah1902@gmail.com', '7898335057', '12345', 1, '2024-07-12 23:43:08', '2024-07-13 00:47:06');
+(1, 'Rahul Shah', 'rjshah1902', 'rjshah1902@gmail.com', '7898335057', '827ccb0eea8a706c4c34a16891f84e7b', 1, '2024-07-12 23:43:08', '2024-07-15 00:37:26');
 
 --
 -- Indexes for dumped tables

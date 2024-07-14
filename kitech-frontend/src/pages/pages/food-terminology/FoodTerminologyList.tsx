@@ -26,19 +26,19 @@ const FoodTerminologyList: React.FC<FoodTerminologyListProps> = ({ foodItem }) =
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gray-50">
                                             <tr className="divide-x divide-gray-200">
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12 py-3.5 text-left text-sm font-semibold">
                                                     <span>Sr.</span>
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12 py-3.5 text-left text-sm font-semibold">
                                                     <span>Food Name</span>
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12 py-3.5 text-left text-sm font-semibold">
                                                     Food Type
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12 py-3.5 text-left text-sm font-semibold">
                                                     Terminology No.
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12 py-3.5 text-left text-sm font-semibold">
                                                     Action
                                                 </th>
                                             </tr>
@@ -46,7 +46,7 @@ const FoodTerminologyList: React.FC<FoodTerminologyListProps> = ({ foodItem }) =
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {foodItem.map((data: { id: string, terminology_name: string, terminology_number: string, food_type: string }, index) => (
                                                 <tr key={index} className="divide-x divide-gray-200">
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12 py-4">
                                                         {index + 1}
                                                     </td>
                                                     <td className="whitespace-nowrap px-4 py-4">
@@ -56,10 +56,10 @@ const FoodTerminologyList: React.FC<FoodTerminologyListProps> = ({ foodItem }) =
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12 py-4">
                                                         <div className="text-sm text-gray-500">{data?.food_type}</div>
                                                     </td>
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12 py-4">
                                                         <div className="text-sm text-gray-500">{data?.terminology_number}</div>
                                                     </td>
                                                     <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">

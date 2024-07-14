@@ -22,7 +22,7 @@ class Users extends BaseController {
 
             if($data){
             
-                $where .= " AND password = '" . $password . "'";
+                $where .= " AND password = '" . md5($password) . "'";
             
                 $columns = "id, name, username, email, contact";
 

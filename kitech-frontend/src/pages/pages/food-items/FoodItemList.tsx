@@ -28,22 +28,22 @@ const FoodItemList: React.FC<FoodItemListProps> = ({ foodItem, deleteItem }) => 
                                     <table className="min-w-full divide-y divide-gray-200">
                                         <thead className="bg-gray-50">
                                             <tr className="divide-x divide-gray-200">
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12  py-3.5 text-left text-sm font-semibold">
                                                     <span>Sr.</span>
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
-                                                    <span>Food Name</span>
+                                                <th scope="col" className="px-3 md:px-12  py-3.5 text-left text-sm font-semibold">
+                                                    <span>Name</span>
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12  py-3.5 text-left text-sm font-semibold">
                                                     Category
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
-                                                    Food Type
+                                                <th scope="col" className="px-3 md:px-12  py-3.5 text-left text-sm font-semibold">
+                                                    Type
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
-                                                    Food Terminology
+                                                <th scope="col" className="px-3 md:px-12  py-3.5 text-left text-sm font-semibold">
+                                                    Terminology
                                                 </th>
-                                                <th scope="col" className="px-12 py-3.5 text-left text-sm font-semibold">
+                                                <th scope="col" className="px-3 md:px-12  py-3.5 text-left text-sm font-semibold">
                                                     Action
                                                 </th>
                                             </tr>
@@ -51,7 +51,7 @@ const FoodItemList: React.FC<FoodItemListProps> = ({ foodItem, deleteItem }) => 
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {foodItem.map((data: { id: string, food_name: string, category_name: string, food_type: string, terminology_name: string }, index) => (
                                                 <tr key={index} className="divide-x divide-gray-200">
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12  py-4">
                                                         {index + 1}
                                                     </td>
                                                     <td className="whitespace-nowrap px-4 py-4">
@@ -61,13 +61,13 @@ const FoodItemList: React.FC<FoodItemListProps> = ({ foodItem, deleteItem }) => 
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12  py-4">
                                                         <div className="text-sm text-gray-900">{data?.category_name}</div>
                                                     </td>
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12  py-4">
                                                         <div className="text-sm text-gray-500">{data?.food_type}</div>
                                                     </td>
-                                                    <td className="whitespace-nowrap px-12 py-4">
+                                                    <td className="whitespace-nowrap px-3 md:px-12  py-4">
                                                         <div className="text-sm text-gray-500">{data?.terminology_name}</div>
                                                     </td>
                                                     <td className="whitespace-nowrap px-4 py-4 text-right text-sm font-medium">
