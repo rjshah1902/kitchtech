@@ -1,0 +1,893 @@
+{
+	"info": {
+		"_postman_id": "3425b04a-955c-4eb8-9c39-c81c70244e7f",
+		"name": "KitchTech",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25037634"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "rjshah1902",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/users/index.php?name=login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"users",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Rahul Shah",
+									"type": "text"
+								},
+								{
+									"key": "userId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "rjshah1902@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/users/index.php?name=update-user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"users",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "update-user"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/users/index.php?name=user-data&userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"users",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "user-data"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food Items",
+			"item": [
+				{
+					"name": "List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=list&search=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-item",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "list"
+								},
+								{
+									"key": "search",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Food item Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=details&food_item_id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-item",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "details"
+								},
+								{
+									"key": "food_item_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Food Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "food_name",
+									"value": "Milk Shake",
+									"type": "text"
+								},
+								{
+									"key": "food_category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "food_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "food_terminology_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-item",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "store"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Food Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "food_name",
+									"value": "Hello Mini",
+									"type": "text"
+								},
+								{
+									"key": "food_category_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "food_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "food_terminology_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-item",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "update"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Food Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-item",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "delete"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Home Residents",
+			"item": [
+				{
+					"name": "List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/home-residents/index.php?name=list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"home-residents",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "list"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Home Residents Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/home-residents/index.php?name=details&id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"home-residents",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "details"
+								},
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Home Residents",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Hello World",
+									"type": "text"
+								},
+								{
+									"key": "food_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "food_terminology_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/home-residents/index.php?name=store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"home-residents",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "store"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Home Residents",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Hello Mini",
+									"type": "text"
+								},
+								{
+									"key": "food_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "food_terminology_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/home-residents/index.php?name=update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"home-residents",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "update"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Home Residents",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/home-residents/index.php?name=delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"home-residents",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "delete"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food Terminology",
+			"item": [
+				{
+					"name": "List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-terminology",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "list"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Food Terminology Details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=details&food_item_id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-terminology",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "details"
+								},
+								{
+									"key": "food_item_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Food Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "terminology_name",
+									"value": "Hello Mini",
+									"type": "text"
+								},
+								{
+									"key": "food_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "terminology_number",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=store",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-terminology",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "store"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Food Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "terminology_name",
+									"value": "Hello Mini 2",
+									"type": "text"
+								},
+								{
+									"key": "food_type_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "terminology_number",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "id",
+									"value": "11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-terminology",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "update"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Food Items",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "11",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-terminology",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "delete"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food Category",
+			"item": [
+				{
+					"name": "Get Food Cateory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-category/index.php?name=list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-category",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "list"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Food Type",
+			"item": [
+				{
+					"name": "List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/kitchtech/backend/api/food-type/index.php?name=list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"kitchtech",
+								"backend",
+								"api",
+								"food-type",
+								"index.php"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "list"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
