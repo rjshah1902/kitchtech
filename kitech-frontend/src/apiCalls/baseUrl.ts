@@ -1,1 +1,1 @@
-export const baseUrl:string = "http://localhost/kitchtech/backend/api/";
+export const baseUrl:string = "http://radiomann.in/kitchtech/api/";
