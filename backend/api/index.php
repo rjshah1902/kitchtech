@@ -2,7 +2,12 @@
 
 require_once "./../../constant/methods.php";
 
-header("Access-Control-Allow-Origin: https://kitchtech.vercel.app/");
+$allowed_origins = [
+    "http://localhost:3000",
+    "https://kitchtech.vercel.app"
+];
+
+header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
