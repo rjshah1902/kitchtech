@@ -23,7 +23,9 @@ class CurdOperation extends Database {
 
         $qry .= $other;
 
-        $result = mysqli_query($this->conn, $qry);
+        $result = $this->conn->prepare($qry);
+
+        $result->execute();
 
         if (!$result) {
             echo "Error in query: " . mysqli_error($this->conn);
@@ -33,12 +35,12 @@ class CurdOperation extends Database {
         if ($dataType == 'row') {
             
             /* Get Single Row Data From The Database */
-            $data = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            $data = $result->fetch(PDO::FETCH_ASSOC);
 
         } else {
 
             /* Get All Result Data From The Database */
-            $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $data = $result->fetchAll(PDO::FETCH_ASSOC);
 
         }
 
@@ -79,15 +81,22 @@ class CurdOperation extends Database {
             echo $qry;
         }
 
-        $result = mysqli_query($this->conn, $qry);
+        try{
 
-        /* In case of any Error return the error here */
-        if (!$result) {
-            echo "Error: " . mysqli_error($this->conn);
+            $result = $this->conn->prepare($qry);
+
+            $result->execute();
+
+        } catch (PDOException $e) {
+            
+           echo $e->getMessage();
+
+           return false;
+        
         }
 
+        $lastInsertId = $this->conn->lastInsertId();
         /* Get Insert ID from this */
-        $lastInsertId = mysqli_insert_id($this->conn);
 
         return $lastInsertId;
     }
@@ -101,6 +110,8 @@ class CurdOperation extends Database {
         $colomns = "";
 
         $totalCount = count($requestData);
+        
+        $params = [];
 
         $count = 0;
         
@@ -109,7 +120,9 @@ class CurdOperation extends Database {
             
             $count++;
             
-            $columns .= trim($key) ." = '" . trim($data) . "'";
+            $columns .= "`" . trim($key) . "` = ?";
+            
+            $params[] = trim($data);
 
             if ($count < $totalCount) {
                 $columns .= ", ";
@@ -129,15 +142,22 @@ class CurdOperation extends Database {
             echo $qry;
         }
 
-        $result = mysqli_query($this->conn, $qry);
+        try{
 
-        /* In case of any Error return the error here */
-        if (!$result) {
-            echo "Error: " . mysqli_error($this->conn);
+            $result = $this->conn->prepare($qry);
+
+            $result->execute($params);
+
+        } catch (PDOException $e) {
+            
+           echo $e->getMessage();
+
+           return false;
+        
         }
 
         /* Check Return Reponse in case of Update Query */
-        $returnReponse = mysqli_affected_rows($this->conn);
+        $returnReponse = $result->rowCount();
 
         return $returnReponse;
     }
@@ -161,15 +181,21 @@ class CurdOperation extends Database {
             echo $qry;
         }
 
-        $result = mysqli_query($this->conn, $qry);
+        try{
 
-        /* In case of any Error return the error here */
-        if (!$result) {
-            echo "Error: " . mysqli_error($this->conn);
+            $result = $this->conn->prepare($qry);
+
+            $result->execute($params);
+
+        } catch (PDOException $e) {
+            
+           echo $e->getMessage();
+
+           return false;
         }
 
-        /* Check Return Reponse in case of Delete Query */
-        $returnReponse = mysqli_affected_rows($this->conn);
+        /* Check Return Reponse in case of Update Query */
+        $returnReponse = $result->rowCount();
 
         return $returnReponse;
     }
