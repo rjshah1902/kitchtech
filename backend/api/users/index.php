@@ -1,6 +1,7 @@
 <?php
 
 require_once './users.php';
+require_once "./../response.php";
 
 
 if ($_GET['name'] === 'login') {
@@ -19,13 +20,13 @@ if ($_GET['name'] === 'login') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide Username & Password", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide Username & Password");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else if ($_GET['name'] == 'user-data') {
@@ -44,13 +45,13 @@ if ($_GET['name'] === 'login') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide User Id", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide User Id");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'update-user') {
@@ -96,18 +97,18 @@ if ($_GET['name'] === 'login') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide User Id", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide User Id");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else {
     
-   echo json_encode(array("status"=>false, "message"=>"API Not Found", "data"=>[]));
+   echo Response::jsonResponse(false, "API Not Found");
 
 }
 

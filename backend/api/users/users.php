@@ -1,6 +1,7 @@
 <?php
 
 require_once "./../index.php";
+require_once "./../response.php";
 
 class Users extends BaseController {
 
@@ -28,23 +29,23 @@ class Users extends BaseController {
                     $columns = "id, name, username, email, contact";
                     $userDetails = $curdOperation->getData($columns, $this->tableName, "row", $where);
     
-                    return json_encode(array("status" => true, "message" => "User Login Successfully", "data" => $userDetails));
+                    return Response::jsonResponse(true, "User Login Successfully", $userDetails);
         
                 } else {
         
-                    return json_encode(array("status" => false, "message" => "Please Provide a Valid Password", "data" => []));
+                    return Response::jsonResponse(false, "Please Provide a Valid Password", []);
         
                 }
         
             } else {
         
-                return json_encode(array("status" => false, "message" => "User Not Exist", "data" => []));
+                return Response::jsonResponse(false, "User Not Exist", []);
         
             }
         
         } else {
 
-            return json_encode(array("status" => false, "message" => "Cannot perform database operations because the connection failed", "data" => []));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed", []);
         
         }
     }
@@ -65,21 +66,21 @@ class Users extends BaseController {
 
                 if($data){
                     
-                    return json_encode(array("status"=>true, "message"=>"User Login Successfully", "data"=>$data));
+                    return Response::jsonResponse(true, "User Login Successfully", $data);
 
                 } else {
                 
-                    return json_encode(array("status"=>false, "message"=>"User Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "User Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid User Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid User Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
@@ -105,25 +106,25 @@ class Users extends BaseController {
                     
                         $resultData = $curdOperation->getData("*", $this->tableName, "row", $where);
                         
-                        return json_encode(array("status"=>true, "message"=>"User Updated Successfully", "data"=>$resultData));
+                        return Response::jsonResponse(true, "User Updated Successfully",$resultData);
 
                     } else {
                     
-                        return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
                     }
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"User Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "User Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid User Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid User Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
