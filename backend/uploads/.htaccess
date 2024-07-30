@@ -1,0 +1,3 @@
+# Deny access to the uploads folder
+Order Deny,Allow
+Deny from all
