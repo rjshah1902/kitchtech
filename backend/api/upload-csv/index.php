@@ -1,6 +1,7 @@
 <?php
 
 require_once './upload-csv.php';
+require_once "./../response.php";
 
 if ($_GET['name'] == 'upload-csv') {
 
@@ -12,12 +13,12 @@ if ($_GET['name'] == 'upload-csv') {
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else {
     
-   echo json_encode(array("status"=>false, "message"=>"API Not Found", "data"=>[]));
+   echo Response::jsonResponse(false, "API Not Found");
 
 }
 

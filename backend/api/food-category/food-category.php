@@ -1,6 +1,7 @@
 <?php
 
 require_once "./../index.php";
+require_once "./../response.php";
 
 class FoodCategory extends BaseController{
 
@@ -24,16 +25,16 @@ class FoodCategory extends BaseController{
 
             if($data){
                 
-                return json_encode(array("status"=>true, "message"=>"Food Category List Fetchead Successfully", "data"=>$data));
+                return Response::jsonResponse(true, "Food Category List Fetchead Successfully", $data);
 
             } else {
             
-                return json_encode(array("status"=>true, "message"=>"Data is Empty", "data"=>[]));
+                return Response::jsonResponse(true, "Data is Empty");
             }
 
         }else{
 
-            echo json_encode(array('status'=>false, 'message'=>'Failed to connect to the database', 'data'=>[]));
+            return Response::jsonResponse(false, 'Failed to connect to the database');
         
         }
     }

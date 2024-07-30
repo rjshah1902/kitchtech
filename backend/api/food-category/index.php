@@ -1,6 +1,7 @@
 <?php
 
 require_once './food-category.php';
+require_once "./../response.php";
 
 
 if ($_GET['name'] === 'list') {
@@ -15,12 +16,12 @@ if ($_GET['name'] === 'list') {
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false,"Request Method Not Allowed");
     }
 
 }  else {
     
-   echo json_encode(array("status"=>false, "message"=>"API Not Found", "data"=>[]));
+    echo Response::jsonResponse(false,"API Not Found");
 
 }
 

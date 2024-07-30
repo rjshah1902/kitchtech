@@ -1,6 +1,7 @@
 <?php
 
 require_once "./../index.php";
+require_once "./../response.php";
 
 class FoodTerminology extends BaseController{
 
@@ -28,16 +29,16 @@ class FoodTerminology extends BaseController{
 
             if($data){
                 
-                return json_encode(array("status"=>true, "message"=>"Food Terminology List Fetchead Successfully", "data"=>$data));
+                return Response::jsonResponse(true, "Food Terminology List Fetchead Successfully", $data);
 
             } else {
             
-                return json_encode(array("status"=>true, "message"=>"Data is Empty", "data"=>[]));
+                return Response::jsonResponse(true, "Data is Empty");
             }
 
         }else{
 
-            echo json_encode(array('status'=>false, 'message'=>'Failed to connect to the database', 'data'=>[]));
+            return Response::jsonResponse(false, 'Failed to connect to the database');
         
         }
     }
@@ -55,16 +56,16 @@ class FoodTerminology extends BaseController{
 
             if($update){
                 
-                return json_encode(array("status"=>true, "message"=>"Food Terminology Added Successfully", "data"=>$requestdata));
+                return Response::jsonResponse(true, "Food Terminology Added Successfully", $requestdata);
 
             } else {
             
-                return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
 
@@ -93,25 +94,25 @@ class FoodTerminology extends BaseController{
                     
                         $resultData = $curdOperation->getData("*", $this->tableName, "row", $where);
                         
-                        return json_encode(array("status"=>true, "message"=>"Food Terminology Updated Successfully", "data"=>$resultData));
+                        return Response::jsonResponse(true, "Food Terminology Updated Successfully", $resultData);
 
                     } else {
                     
-                        return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
                     }
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"Food Terminology Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "Food Terminology Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
@@ -137,25 +138,25 @@ class FoodTerminology extends BaseController{
 
                     if($delete){
                         
-                        return json_encode(array("status"=>true, "message"=>"Food Terminology Deleted Successfully", "data"=>$resultData));
+                        return Response::jsonResponse(true, "Food Terminology Deleted Successfully", $resultData);
 
                     } else {
                     
-                        return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
                     }
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"Food Terminology Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "Food Terminology Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
@@ -176,21 +177,21 @@ class FoodTerminology extends BaseController{
 
                 if($data){
 
-                    return json_encode(array("status"=>true, "message"=>"Food Terminology Get Successfully", "data"=>$data));
+                    return Response::jsonResponse(true, "Food Terminology Get Successfully", $data);
 
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"Food Terminology Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "Food Terminology Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }

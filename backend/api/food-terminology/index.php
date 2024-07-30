@@ -1,6 +1,7 @@
 <?php
 
 require_once './food-terminology.php';
+require_once "./../response.php";
 
 
 if ($_GET['name'] === 'list') {
@@ -15,7 +16,7 @@ if ($_GET['name'] === 'list') {
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'details') {
@@ -34,13 +35,13 @@ if ($_GET['name'] === 'list') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide Food item Id", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide Food item Id");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else if ($_GET['name'] == 'store') {
@@ -63,13 +64,13 @@ if ($_GET['name'] === 'list') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide Name, Category, Food Type & Terminilogy Number", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide Name, Category, Food Type & Terminilogy Number");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'update') {
@@ -93,13 +94,13 @@ if ($_GET['name'] === 'list') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide Name, Category, Food Type & Terminilogy Number", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide Name, Category, Food Type & Terminilogy Number");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'delete') {
@@ -118,18 +119,18 @@ if ($_GET['name'] === 'list') {
 
         } else {
             
-            echo json_encode(array("status"=>false, "message"=>"Please provide Food Terminology Id", "data"=>[]));
+            echo Response::jsonResponse(false, "Please provide Food Terminology Id");
         
         }
 
     } else {
         
-        echo json_encode(array("status"=>false, "message"=>"Request Method Not Allowed", "data"=>[]));
+        echo Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }   else {
     
-   echo json_encode(array("status"=>false, "message"=>"API Not Found", "data"=>[]));
+   echo Response::jsonResponse(false, "API Not Found");
 
 }
 

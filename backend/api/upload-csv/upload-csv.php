@@ -1,6 +1,7 @@
 <?php
 
 require_once "./../index.php";
+require_once "./../response.php";
 
 class UploadCSV extends BaseController {
 
@@ -59,18 +60,18 @@ class UploadCSV extends BaseController {
                             fclose($handle);
                         }
 
-                        return json_encode(array("status" => true, "message" => "File is successfully uploaded and processed."));
+                        return Response::jsonResponse(true, "File is successfully uploaded and processed.");
                     } else {
-                        return json_encode(array('status' => false, 'message' => 'Failed to connect to the database'));
+                        return Response::jsonResponse(false, 'Failed to connect to the database');
                     }
                 } else {
-                    return json_encode(array('status' => false, 'message' => 'There was an error moving the uploaded file.'));
+                    return Response::jsonResponse(false, 'There was an error moving the uploaded file.');
                 }
             } else {
-                return json_encode(array('status' => false, 'message' => 'Upload failed. Allowed file types: CSV.'));
+                return Response::jsonResponse(false, 'Upload failed. Allowed file types: CSV.');
             }
         } else {
-            return json_encode(array('status' => false, 'message' => 'There is no file uploaded or there was an error uploading the file.'));
+            return Response::jsonResponse(false, 'There is no file uploaded or there was an error uploading the file.');
         }
     }
 }

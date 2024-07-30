@@ -1,6 +1,7 @@
 <?php
 
 require_once "./../index.php";
+require_once "./../response.php";
 
 class FoodItems extends BaseController{
 
@@ -34,16 +35,16 @@ class FoodItems extends BaseController{
 
             if($data){
                 
-                return json_encode(array("status"=>true, "message"=>"Food Item List Fetchead Successfully", "data"=>$data));
+                return Response::jsonResponse(true, "Food Item List Fetchead Successfully", $data);
 
             } else {
             
-                return json_encode(array("status"=>true, "message"=>"Data is Empty", "data"=>[]));
+                return Response::jsonResponse(true, "Data is Empty");
             }
 
         }else{
 
-            echo json_encode(array('status'=>false, 'message'=>'Failed to connect to the database', 'data'=>[]));
+            return Response::jsonResponse(false,'Failed to connect to the database');
         
         }
     }
@@ -61,16 +62,16 @@ class FoodItems extends BaseController{
 
             if($update){
                 
-                return json_encode(array("status"=>true, "message"=>"Food Item Added Successfully", "data"=>$requestdata));
+                return Response::jsonResponse(true, "Food Item Added Successfully", $requestdata);
 
             } else {
             
-                return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
 
@@ -99,25 +100,25 @@ class FoodItems extends BaseController{
                     
                         $resultData = $curdOperation->getData("*", $this->tableName, "row", $where);
                         
-                        return json_encode(array("status"=>true, "message"=>"Food Item Updated Successfully", "data"=>$resultData));
+                        return Response::jsonResponse(true, "Food Item Updated Successfully", $resultData);
 
                     } else {
                     
-                        return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
                     }
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"Food Item Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "Food Item Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
@@ -143,25 +144,25 @@ class FoodItems extends BaseController{
 
                     if($delete){
                         
-                        return json_encode(array("status"=>true, "message"=>"Food Item Deleted Successfully", "data"=>$resultData));
+                        return Response::jsonResponse(true, "Food Item Deleted Successfully", $resultData);
 
                     } else {
                     
-                        return json_encode(array("status"=>false, "message"=>"Something Went Wrong, Please try again after some time", "data"=>[]));
+                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
                     }
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"Food Item Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "Food Item Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
@@ -183,21 +184,21 @@ class FoodItems extends BaseController{
 
                 if($data){
 
-                    return json_encode(array("status"=>true, "message"=>"Food Item Get Successfully", "data"=>$data));
+                    return Response::jsonResponse(true, "Food Item Get Successfully", $data);
 
                 } else {
                     
-                    return json_encode(array("status"=>false, "message"=>"Food Item Not Found", "data"=>[]));
+                    return Response::jsonResponse(false, "Food Item Not Found");
                 }
 
             } else {
                 
-                return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Id", "data"=>[]));
+                return Response::jsonResponse(false, "Please Provide a Valid Id");
             }
 
         } else {
             
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+            return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
     }
