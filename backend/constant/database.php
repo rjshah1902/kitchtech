@@ -12,7 +12,7 @@ class Database{
 
     private $database = DATABASE;
 
-    public $connection;
+    private $connection;
 
     public function getConnection(){
 
