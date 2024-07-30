@@ -11,43 +11,44 @@ class Users extends BaseController {
     }
 
     public function loginUser($username, $password) {
-        
         $curdOperation = $this->getDatabase();
-
+    
         if ($curdOperation !== null) {
             
             $where = "username = '" . $username ."'";
             
             $data = $curdOperation->getData("*", $this->tableName, "row", $where);
-
+    
             if($data){
-            
-                $where .= " AND password = '" . md5($password) . "'";
-            
-                $columns = "id, name, username, email, contact";
-
-                $data2 = $curdOperation->getData($columns, $this->tableName, "row", $where);
-
-                if ($data2) {
                 
-                    return json_encode(array("status"=>true, "message"=>"User Login Successfully", "data"=>$data2));
-
+                $hashedPassword = $data['password'];
+    
+                if (password_verify($password, $hashedPassword)) {
+        
+                    $columns = "id, name, username, email, contact";
+                    $userDetails = $curdOperation->getData($columns, $this->tableName, "row", $where);
+    
+                    return json_encode(array("status" => true, "message" => "User Login Successfully", "data" => $userDetails));
+        
                 } else {
-                
-                    return json_encode(array("status"=>false, "message"=>"Please Provide a Valid Password", "data"=>[]));
+        
+                    return json_encode(array("status" => false, "message" => "Please Provide a Valid Password", "data" => []));
+        
                 }
-
-            }else{
-                
-                return json_encode(array("status"=>false, "message"=>"User Not Exist", "data"=>[]));
+        
+            } else {
+        
+                return json_encode(array("status" => false, "message" => "User Not Exist", "data" => []));
+        
             }
-
+        
         } else {
-            
-            return json_encode(array("status"=>false, "message"=>"Cannot perform database operations because the connection failed", "data"=>[]));
+
+            return json_encode(array("status" => false, "message" => "Cannot perform database operations because the connection failed", "data" => []));
         
         }
     }
+    
     
 
     public function getUserData($userId) {
