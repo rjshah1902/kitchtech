@@ -19,12 +19,14 @@ class Database{
         $this->connection = null;
 
         /* Connect to database */
-
-        $this->connection = mysqli_connect($this->host,$this->username,$this->password,$this->database);
         
-        if ($this->connection === false) {
+        try{
+         
+            $this->connection = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->database, $this->username, $this->password);
 
-            error_log("Connection error: " . mysqli_connect_error());
+        }catch(PDOException $exception){
+            
+            echo "Connection error: " . $exception->getMessage();
         
         }
 
