@@ -2,14 +2,16 @@
 
 error_reporting(1);
 
-define("HOSTNAME","localhost");
+require_once "config.php";
 
-define("USERNAME","root");
+define("HOSTNAME",HOSTNAME);
 
-define("PASSWORD","");
+define("USERNAME",USERNAME);
 
-define("DATABASE","kitchtech");
+define("PASSWORD",PASSWORD);
 
-define("PROJECT_NAME","kitchtech");
+define("DATABASE",DATABASE);
+
+define("PROJECT_NAME",PROJECT_NAME);
 
 ?>
