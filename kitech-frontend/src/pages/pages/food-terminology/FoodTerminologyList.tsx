@@ -45,7 +45,7 @@ const FoodTerminologyList: React.FC<FoodTerminologyListProps> = ({ foodItem }) =
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {foodItem.map((data: { id: string, terminology_name: string, terminology_number: string, food_type: string }, index) => (
-                                                <tr key={index} className="divide-x divide-gray-200">
+                                                <tr key={data.id} className="divide-x divide-gray-200">
                                                     <td className="whitespace-nowrap px-3 md:px-12 py-4">
                                                         {index + 1}
                                                     </td>

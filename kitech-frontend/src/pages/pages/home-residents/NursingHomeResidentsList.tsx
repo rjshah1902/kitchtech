@@ -46,7 +46,7 @@ const NursingHomeResidentsList: React.FC<FoodItemListProps> = ({ foodItem, delet
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {foodItem.map((data: { id: string, name: string, food_type: string, terminology_name: string }, index) => (
-                                                <tr key={index} className="divide-x divide-gray-200">
+                                                <tr key={data.id} className="divide-x divide-gray-200">
                                                     <td className="whitespace-nowrap px-12 py-4">
                                                         {index + 1}
                                                     </td>

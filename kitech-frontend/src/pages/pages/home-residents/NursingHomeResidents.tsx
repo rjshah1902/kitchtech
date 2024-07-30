@@ -29,7 +29,6 @@ const NursingHomeResidents: React.FC = () => {
     const [foodTerminologyList, setFoodTerminologyList] = useState([]);
     const [buttonText, setButtonText] = useState<string>(btnText);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-    const [searchData, setSearchData] = useState<string>("");
 
     useEffect(() => {
         getFoodItemData();
@@ -74,11 +73,11 @@ const NursingHomeResidents: React.FC = () => {
         requesData.append('food_type_id', formData.food_type_id);
         requesData.append('food_terminology_id', formData.food_terminology_id);
 
-        if (formData.name != null && formData.name != "" && formData.name.length > 0) {
+        if (formData.name != null && formData.name !== "" && formData.name.length > 0) {
             let response = await PostMethod(url, requesData);
             if (response) {
                 setButtonText(btnText);
-                const { status, message, data } = response;
+                const { status, message, } = response;
                 if (status === true) {
                     setButtonDisabled(false);
                     getFoodItemData();
@@ -157,7 +156,7 @@ const NursingHomeResidents: React.FC = () => {
                                         <option value="" selected disabled> -- Select -- </option>
                                         {
                                             foodTerminologyList.map((data: { id: string, food_type_id: string, terminology_name: string }, index) =>
-                                                <option key={index} value={data?.id} data-typeId={data?.food_type_id}>{data.terminology_name}</option>)
+                                                <option key={data?.id} value={data?.id} data-typeId={data?.food_type_id}>{data.terminology_name}</option>)
                                         }
                                     </select>
                                 </div>
