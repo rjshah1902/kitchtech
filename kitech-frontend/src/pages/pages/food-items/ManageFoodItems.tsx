@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import React, { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
@@ -13,7 +14,7 @@ interface FoodItem {
     id: any;
 };
 
-const EditFoodItems: React.FC = () => {
+const ManageFoodItems: React.FC = () => {
 
     const { id } = useParams();
 
@@ -29,7 +30,7 @@ const EditFoodItems: React.FC = () => {
 
     const [formData, setFormData] = useState<FoodItem>(formFielddata);
 
-    const btnText = "Update Food Item";
+    const btnText = "Add Food Item";
 
     const [foodCategoryList, setFoodCategoryList] = useState([]);
     const [foodTerminologyList, setFoodTerminologyList] = useState([]);
@@ -52,6 +53,8 @@ const EditFoodItems: React.FC = () => {
 
         if (status === true) {
             setFormData(data);
+
+            setButtonText("Update Food Item");
         }
     };
 
@@ -86,7 +89,13 @@ const EditFoodItems: React.FC = () => {
         setButtonText("Loading...");
         setButtonDisabled(true);
 
-        const url = "food-item/index.php?name=update";
+        let url = "food-item/index.php?";
+
+        if (id) {
+
+            url += "name=update";
+
+        } else { url += "name=store"; }
 
         const requesData = new FormData();
         requesData.append('food_name', formData.food_name);
@@ -95,11 +104,11 @@ const EditFoodItems: React.FC = () => {
         requesData.append('food_terminology_id', formData.food_terminology_id);
         requesData.append('id', formData.id);
 
-        if (formData.food_name != null && formData.food_name != "" && formData.food_name.length > 0) {
+        if (formData.food_name != null && formData.food_name !== "" && formData.food_name.length > 0) {
             let response = await PostMethod(url, requesData);
             if (response) {
                 setButtonText(btnText);
-                const { status, message, data } = response;
+                const { status, message } = response;
                 if (status === true) {
                     setButtonDisabled(false);
                     setFormData(formFielddata);
@@ -131,11 +140,11 @@ const EditFoodItems: React.FC = () => {
 
     return (
         <>
-            <section className="mx-auto w-full max-w-7xl px-4 py-4 mb-20">
+            <section className="mx-auto w-full max-w-7xl py-4">
                 <div className="md:space-y-0">
                     <div>
                         <h2 className="text-lg font-semibold">Manage Food Items</h2>
-                        <div className='bg-gray-100 py-4 px-4 mt-4'>
+                        <div className='bg-gray-100 py-4 px-4 mt-4 rounded-lg'>
                             <form onSubmit={formHandler} method="post" autoComplete={"off"}>
                                 <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-4 ">
                                     <div>
@@ -176,4 +185,4 @@ const EditFoodItems: React.FC = () => {
     )
 }
 
-export default EditFoodItems;
+export default ManageFoodItems;

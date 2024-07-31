@@ -18,7 +18,7 @@ interface FootTerminology {
     id: string;
 }
 
-const EditFoodTerminology: React.FC = () => {
+const ManageFoodTerminology: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
@@ -29,9 +29,11 @@ const EditFoodTerminology: React.FC = () => {
         id: id || '',
     };
 
+    const btnText = "Add Food Terminology";
+
     const [formData, setFormData] = useState<FootTerminology>(initialFormData);
     const [foodTypeList, setFoodTypeList] = useState<FoodType[]>([]);
-    const [buttonText, setButtonText] = useState<string>("Update Food Terminology");
+    const [buttonText, setButtonText] = useState<string>(btnText);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     useEffect(() => {
@@ -56,6 +58,7 @@ const EditFoodTerminology: React.FC = () => {
 
         if (status) {
             setFormData(data);
+            setButtonText("Update Food Terminology");
         }
     };
 
@@ -64,7 +67,13 @@ const EditFoodTerminology: React.FC = () => {
         setButtonText("Loading...");
         setButtonDisabled(true);
 
-        const url = "food-terminology/index.php?name=update";
+        let url = "food-terminology/index.php";
+
+        if (id) {
+            url += "?name=update";
+        } else {
+            url += "?name=store";
+        }
 
         const requestData = new FormData();
         requestData.append('terminology_name', formData.terminology_name);
@@ -105,11 +114,11 @@ const EditFoodTerminology: React.FC = () => {
     };
 
     return (
-        <section className="mx-auto w-full max-w-7xl px-4 py-4 mb-20">
+        <section className="mx-auto w-full max-w-7xl py-4">
             <div className="md:space-y-0">
                 <div>
                     <h2 className="text-lg font-semibold">Manage Food Items</h2>
-                    <div className="bg-gray-100 py-4 px-4 mt-4">
+                    <div className="bg-gray-100 py-4 px-4 mt-4 rounded-lg">
                         <form onSubmit={formHandler} method="post" autoComplete="off">
                             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-4">
                                 <div>
@@ -167,4 +176,4 @@ const EditFoodTerminology: React.FC = () => {
     )
 };
 
-export default EditFoodTerminology;
+export default ManageFoodTerminology;
