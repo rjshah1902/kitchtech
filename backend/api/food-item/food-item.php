@@ -81,43 +81,41 @@ class FoodItems extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            if((int)$id > 0){
-
-                $where = "id = '" . $id ."'";
-                
-                $data = $connection->getData("*", $this->tableName, "row", $where);
-
-                if($data){
-
-                    $update = $connection->updateData($this->tableName, $requestdata, $where);
-
-                    if($update){
-                    
-                        $resultData = $connection->getData("*", $this->tableName, "row", $where);
-                        
-                        return Response::jsonResponse(true, "Food Item Updated Successfully", $resultData);
-
-                    } else {
-                    
-                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
-                    }
-                } else {
-                    
-                    return Response::jsonResponse(false, "Food Item Not Found");
-                }
-
-            } else {
-                
-                return Response::jsonResponse(false, "Please Provide a Valid Id");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
+            
+        if(empty((int)$id)){
+            
+            return Response::jsonResponse(false, "Please Provide a Valid Id");
+        
+        }
+
+        $where = "id = '" . $id ."'";
+        
+        $data = $connection->getData("*", $this->tableName, "row", $where);
+
+        if(empty($data)){
+            
+            return Response::jsonResponse(false, "Food Item Not Found");
+        
+        }
+
+        $update = $connection->updateData($this->tableName, $requestdata, $where);
+
+        if($update){
+        
+            $resultData = $connection->getData("*", $this->tableName, "row", $where);
+            
+            return Response::jsonResponse(true, "Food Item Updated Successfully", $resultData);
+
+        } else {
+        
+            return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
+        }
+
     }
 
 
@@ -127,41 +125,36 @@ class FoodItems extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            if((int)$id > 0){
-
-                $where = "id = '" . $id ."'";
-                
-                $data = $connection->getData("*", $this->tableName, "row", $where);
-
-                if($data){
-
-                    $delete = $connection->deleteData($this->tableName, $where);
-
-                    if($delete){
-                        
-                        return Response::jsonResponse(true, "Food Item Deleted Successfully");
-
-                    } else {
-                    
-                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
-                    }
-                } else {
-                    
-                    return Response::jsonResponse(false, "Food Item Not Found");
-                }
-
-            } else {
-                
-                return Response::jsonResponse(false, "Please Provide a Valid Id");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
-        
         }
+            
+        if(empty((int)$id)){
+            
+            return Response::jsonResponse(false, "Please Provide a Valid Id");
+
+        }
+
+        $where = "id = '" . $id ."'";
+        
+        $data = $connection->getData("*", $this->tableName, "row", $where);
+
+        if(empty($data)){
+            
+            return Response::jsonResponse(false, "Food Item Not Found");
+        }
+
+        $delete = $connection->deleteData($this->tableName, $where);
+
+        if(empty($delete)){
+        
+            return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
+
+        }
+            
+        return Response::jsonResponse(true, "Food Item Deleted Successfully");
+
     }
 
 
@@ -171,33 +164,29 @@ class FoodItems extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            if($id != ""){
-
-                $where = "id = '" . $id ."'";
-                
-                $data = $connection->getData("*", $this->tableName, "row", $where);
-
-                if($data){
-
-                    return Response::jsonResponse(true, "Food Item Get Successfully", $data);
-
-                } else {
-                    
-                    return Response::jsonResponse(false, "Food Item Not Found");
-                }
-
-            } else {
-                
-                return Response::jsonResponse(false, "Please Provide a Valid Id");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
+            
+        if(empty($id)){
+            
+            return Response::jsonResponse(false, "Please Provide a Valid Id");
+        
+        }
+
+        $where = "id = '" . $id ."'";
+        
+        $data = $connection->getData("*", $this->tableName, "row", $where);
+
+        if(empty($data)){
+            
+            return Response::jsonResponse(false, "Food Item Not Found");
+
+        } 
+
+        return Response::jsonResponse(true, "Food Item Get Successfully", $data);
     }
 
 }
