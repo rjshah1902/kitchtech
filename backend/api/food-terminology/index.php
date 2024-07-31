@@ -21,8 +21,8 @@ if ($_GET['name'] === 'list') {
 }  else if ($_GET['name'] == 'details') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    
-        $id = $_GET['food_terminology_id'];
+        
+        $id = validate_input($_GET['food_terminology_id'], '/^[0-9]+$/' , 'Terminology Id can only contain Numbers'); 
 
         if (isset($id)) {
 
@@ -34,7 +34,7 @@ if ($_GET['name'] === 'list') {
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Food item Id");
+            echo Response::jsonResponse(false, "Please provide Valid Food Terminology Id");
         
         }
 
@@ -47,9 +47,11 @@ if ($_GET['name'] === 'list') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $terminology_name = $_POST['terminology_name'];
-        $food_type_id = $_POST['food_type_id'];
-        $terminology_number = $_POST['terminology_number'];
+        $terminology_name = validate_input($_POST['terminology_name'], '/^[a-zA-Z\s]+$/' , 'Terminology Name can only contain letters and spaces');  
+        
+        $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
+        
+        $terminology_number = validate_input($_POST['terminology_number'], '/^[0-9]+$/' , 'Terminology Number can only contain Numbers'); 
 
         if (isset($terminology_name)  && isset($food_type_id) && isset($terminology_number)) {
 
@@ -76,10 +78,13 @@ if ($_GET['name'] === 'list') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $terminology_name = $_POST['terminology_name'];
-        $food_type_id = $_POST['food_type_id'];
-        $terminology_number = $_POST['terminology_number'];
-        $id = $_POST['id'];
+        $terminology_name = validate_input($_POST['terminology_name'], '/^[a-zA-Z\s]+$/' , 'Terminology Name can only contain letters and spaces');  
+        
+        $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
+        
+        $terminology_number = validate_input($_POST['terminology_number'], '/^[0-9]+$/' , 'Terminology Number can only contain Numbers'); 
+        
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Terminology Id can only contain Numbers'); 
 
         if (isset($terminology_name)  && isset($food_type_id) && isset($terminology_number)) {
 
@@ -105,8 +110,8 @@ if ($_GET['name'] === 'list') {
 }  else if ($_GET['name'] == 'delete') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-        $id = $_POST['id'];
+        
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Terminology Id can only contain Numbers'); 
 
         if (isset($id)) {
 
