@@ -11,18 +11,18 @@ if ($_GET['name'] === 'list') {
 
         $loginResponse = $login->list();
 
-        echo $loginResponse;
+        return $loginResponse;
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else if ($_GET['name'] == 'details') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     
-        $id = $_GET['id'];
+        $id = validate_input($_GET['id'], '/^[0-9]+$/' , 'Home Residents Id can only contain Numbers');
 
         if (isset($id)) {
 
@@ -30,26 +30,28 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->singleData($id);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Food item Id");
+            return Response::jsonResponse(false, "Please provide valid Home Residents Id");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'store') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $name = $_POST['name'];
-        $food_type_id = $_POST['food_type_id'];
-        $food_terminology_id = $_POST['food_terminology_id'];
+        $name = validate_input($_POST['name'], '/^[a-zA-Z\s]+$/' , 'Home Residents Name can only contain letters and spaces');  
+        
+        $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
+        
+        $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Terminology can only contain Numbers');  
 
         if (isset($name) && isset($food_type_id) && isset($food_terminology_id)) {
 
@@ -59,27 +61,30 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->storeResidentsData($array);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Name, Food Type & Terminilogy");
+            return Response::jsonResponse(false, "Please provide Name, Food Type & Terminilogy");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'update') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $name = $_POST['name'];
-        $food_type_id = $_POST['food_type_id'];
-        $food_terminology_id = $_POST['food_terminology_id'];
-        $id = $_POST['id'];
+        $name = validate_input($_POST['name'], '/^[a-zA-Z\s]+$/' , 'Home Residents can only contain letters and spaces');  
+        
+        $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
+        
+        $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Terminology can only contain Numbers');  
+        
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Home Residents Id can only contain Numbers');  
 
         if (isset($name) && isset($food_type_id) && isset($food_terminology_id)) {
 
@@ -89,24 +94,24 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->updateResidentsData($array, $id);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Name, Food Type & Terminilogy");
+            return Response::jsonResponse(false, "Please provide Name, Food Type & Terminilogy");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'delete') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $id = $_POST['id'];
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Home Residents Id can only contain Numbers');
 
         if (isset($id)) {
 
@@ -114,22 +119,22 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->deleteResidentsData($id);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Home Residents Id");
+            return Response::jsonResponse(false, "Please provide Home Residents Id");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }   else {
     
-   echo Response::jsonResponse(false, "API Not Found");
+   return Response::jsonResponse(false, "API Not Found");
 
 }
 
