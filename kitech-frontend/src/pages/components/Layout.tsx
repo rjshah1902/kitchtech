@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import EditFoodItems from '../pages/food-items/ManageFoodItems'
 import EditFoodTerminology from '../pages/food-terminology/ManageFoodTerminology'
 import NursingHomeResidents from '../pages/home-residents/NursingHomeResidents'
-import EditNursingHomeResidents from '../pages/home-residents/EditNursingHomeResidents'
+import EditNursingHomeResidents from '../pages/home-residents/ManageNursingHomeResidents'
 import UploadCsv from '../pages/upload-csv/UploadCsv'
 
 const Layout = () => {

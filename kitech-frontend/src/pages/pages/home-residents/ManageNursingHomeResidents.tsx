@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import React, { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
@@ -12,7 +13,7 @@ interface HomeResidents {
     id: any;
 };
 
-const EditNursingHomeResidents: React.FC = () => {
+const ManageNursingHomeResidents: React.FC = () => {
 
     const { id } = useParams();
 
@@ -27,18 +28,18 @@ const EditNursingHomeResidents: React.FC = () => {
 
     const [formData, setFormData] = useState<HomeResidents>(formFielddata);
 
-    const btnText = "Update Home Residents";
+    const btnText = "Add Home Residents";
 
     const [foodTerminologyList, setFoodTerminologyList] = useState([]);
     const [buttonText, setButtonText] = useState<string>(btnText);
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     useEffect(() => {
-        getFoodItemDetails();
+        getHomeResidentsDetails();
         getTerminologyData();
     }, []);
 
-    const getFoodItemDetails = async () => {
+    const getHomeResidentsDetails = async () => {
 
         const url = "home-residents/index.php?name=details&id=" + id;
 
@@ -48,6 +49,7 @@ const EditNursingHomeResidents: React.FC = () => {
 
         if (status === true) {
             setFormData(data);
+            setButtonText("Update Home Residents");
         }
     };
 
@@ -69,7 +71,14 @@ const EditNursingHomeResidents: React.FC = () => {
         setButtonText("Loading...");
         setButtonDisabled(true);
 
-        const url = "home-residents/index.php?name=update";
+        let url = "home-residents/index.php";
+
+        if (id) {
+            url += "?name=update";
+        } else {
+            url += "?name=store";
+        }
+
 
         const requesData = new FormData();
         requesData.append('name', formData.name);
@@ -77,7 +86,7 @@ const EditNursingHomeResidents: React.FC = () => {
         requesData.append('food_terminology_id', formData.food_terminology_id);
         requesData.append('id', formData.id);
 
-        if (formData.name != null && formData.name != "" && formData.name.length > 0) {
+        if (formData.name != null && formData.name !== "" && formData.name.length > 0) {
             let response = await PostMethod(url, requesData);
             if (response) {
                 setButtonText(btnText);
@@ -113,10 +122,10 @@ const EditNursingHomeResidents: React.FC = () => {
 
     return (
         <>
-            <section className="mx-auto w-full max-w-7xl px-4 py-4 mb-20">
+            <section className="mx-auto w-full max-w-7xl py-4">
                 <div className="row">
                     <h2 className="text-lg font-semibold">Manage Home Residents</h2>
-                    <div className='rounded-lg bg-gray-100 py-4 px-4 mt-4'>
+                    <div className=' bg-gray-100 py-4 px-4 mt-4 rounded-lg'>
                         <form onSubmit={formHandler} method="post" autoComplete={"off"}>
                             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
                                 <div>
@@ -147,4 +156,4 @@ const EditNursingHomeResidents: React.FC = () => {
     )
 }
 
-export default EditNursingHomeResidents;
+export default ManageNursingHomeResidents;
