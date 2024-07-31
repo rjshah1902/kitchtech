@@ -13,39 +13,40 @@ class FoodItems extends BaseController{
     /* API For List of All Food Item List */
 
     public function list($search = "") {
-        
+
         $connection = $this->getDatabase();
+    
+        if ($connection === null) {
 
-        if($connection !== null){
-            
-            $where = $this->tableName.".status = 1";
-            
-            if( isset($search) && $search != ""){
-
-                $where .= " AND ".$this->tableName.".food_name LIKE '%".$search."%'";
-            
-            }
-
-            $join = "Join food_terminology on food_terminology.id = ".$this->tableName.".food_terminology_id Join food_category on food_category.id = ".$this->tableName.".food_category_id Join food_type on food_type.id = ".$this->tableName.".food_type_id ";
-
-            $select = $this->tableName.".*, food_terminology.terminology_name, food_category.category_name, food_type.name as food_type";
-
-            $data = $connection->getData($select, $this->tableName, "result", $where, 'id desc', $join);
-
-            if($data){
-                
-                return Response::jsonResponse(true, "Food Item List Fetchead Successfully", $data);
-
-            } else {
-            
-                return Response::jsonResponse(true, "Data is Empty");
-            }
-
-        }else{
-
-            return Response::jsonResponse(false,'Failed to connect to the database');
+            return Response::jsonResponse(false, 'Failed to connect to the database');
         
         }
+    
+        $where = $this->tableName . ".status = 1";
+        
+        if (!empty($search)) {
+            
+            $where .= " AND " . $this->tableName . ".food_name LIKE '%" . $connection->escapeString($search) . "%'";
+        
+        }
+    
+        $join = "JOIN food_terminology ON food_terminology.id = " . $this->tableName . ".food_terminology_id ";
+
+        $join .= "JOIN food_category ON food_category.id = " . $this->tableName . ".food_category_id ";
+        
+        $join .= "JOIN food_type ON food_type.id = " . $this->tableName . ".food_type_id";
+    
+        $select = $this->tableName . ".*, food_terminology.terminology_name, food_category.category_name, food_type.name as food_type";
+    
+        $data = $connection->getData($select, $this->tableName, "result", $where, 'id desc', $join);
+    
+        if (empty($data)) {
+
+            return Response::jsonResponse(true, "Data is Empty");
+        
+        }
+    
+        return Response::jsonResponse(true, "Food Item List Fetched Successfully", $data);
     }
     
 
@@ -55,24 +56,21 @@ class FoodItems extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            $update = $connection->insertData($this->tableName, $requestdata);
-
-            if($update){
-                
-                return Response::jsonResponse(true, "Food Item Added Successfully", $requestdata);
-
-            } else {
-            
-                return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
+
+        $cehck = $connection->insertData($this->tableName, $requestdata);
+
+        if (empty($cehck)) {
+            
+            return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
+
+        }
+
+        return Response::jsonResponse(true, "Food Item Added Successfully", $requestdata);
 
     }
     
@@ -143,7 +141,7 @@ class FoodItems extends BaseController{
 
                     if($delete){
                         
-                        return Response::jsonResponse(true, "Food Item Deleted Successfully", $resultData);
+                        return Response::jsonResponse(true, "Food Item Deleted Successfully");
 
                     } else {
                     
