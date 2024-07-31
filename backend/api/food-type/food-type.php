@@ -16,26 +16,24 @@ class FoodType extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if($connection !== null){
-            
-            $where = "status = 1";
-
-            $data = $connection->getData("*", $this->tableName, "result", $where, 'id desc');
-
-            if($data){
-                
-                return Response::jsonResponse(true, "Food Type List Fetchead Successfully", $data);
-
-            } else {
-            
-                return Response::jsonResponse(true, "Data is Empty");
-            }
-
-        }else{
+        if($connection === null){
 
             return Response::jsonResponse(false, 'Failed to connect to the database');
-        
+
         }
+            
+        $where = "status = 1";
+
+        $data = $connection->getData("*", $this->tableName, "result", $where, 'id desc');
+
+        if(empty($data)){
+        
+            return Response::jsonResponse(true, "Data is Empty");
+
+        }
+            
+        return Response::jsonResponse(true, "Food Type List Fetchead Successfully", $data);
+
     }
     
 }
