@@ -16,30 +16,28 @@ class HomeResidents extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if($connection !== null){
-            
-            $where = $this->tableName.".status = 1";
-            
-            $join = "Join food_terminology on food_terminology.id = ".$this->tableName.".food_terminology_id Join food_type on food_type.id = ".$this->tableName.".food_type_id ";
-
-            $select = $this->tableName.".*, food_terminology.terminology_name, food_type.name as food_type";
-                
-            $data = $connection->getData($select, $this->tableName, "result", $where, 'id desc', $join);
-            
-            if($data){
-                
-                return Response::jsonResponse(true, "Home Residents List Fetchead Successfully", $data);
-
-            } else {
-            
-                return Response::jsonResponse(true, "Data is Empty");
-            }
-
-        }else{
+        if($connection === null){
 
             return Response::jsonResponse(false, 'Failed to connect to the database');
-        
+
         }
+            
+        $where = $this->tableName.".status = 1";
+        
+        $join = "Join food_terminology on food_terminology.id = ".$this->tableName.".food_terminology_id Join food_type on food_type.id = ".$this->tableName.".food_type_id ";
+
+        $select = $this->tableName.".*, food_terminology.terminology_name, food_type.name as food_type";
+            
+        $data = $connection->getData($select, $this->tableName, "result", $where, 'id desc', $join);
+        
+        if(empty($data)){
+        
+            return Response::jsonResponse(true, "Data is Empty");
+
+        }
+            
+        return Response::jsonResponse(true, "Home Residents List Fetchead Successfully", $data);
+
     }
     
 
@@ -49,24 +47,21 @@ class HomeResidents extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            $update = $connection->insertData($this->tableName, $requestdata);
-
-            if($update){
-                
-                return Response::jsonResponse(true, "Home Residents Added Successfully", $requestdata);
-
-            } else {
-            
-                return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
-        
+
         }
+            
+        $check = $connection->insertData($this->tableName, $requestdata);
+
+        if(empty($check)){
+        
+            return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
+
+        }
+            
+        return Response::jsonResponse(true, "Home Residents Added Successfully", $requestdata);
 
     }
     
@@ -77,43 +72,40 @@ class HomeResidents extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            if((int)$id > 0){
-
-                $where = "id = '" . $id ."'";
-                
-                $data = $connection->getData("*", $this->tableName, "row", $where);
-
-                if($data){
-
-                    $update = $connection->updateData($this->tableName, $requestdata, $where);
-
-                    if($update){
-                    
-                        $resultData = $connection->getData("*", $this->tableName, "row", $where);
-                        
-                        return Response::jsonResponse(true, "Home Residents Updated Successfully", $resultData);
-
-                    } else {
-                    
-                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
-                    }
-                } else {
-                    
-                    return Response::jsonResponse(false, "Home Residents Not Found");
-                }
-
-            } else {
-                
-                return Response::jsonResponse(false, "Please Provide a Valid Id");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
-        
+
         }
+            
+        if(empty((int)$id)){
+    
+            return Response::jsonResponse(false, "Please Provide a Valid Id");
+        }
+
+        $where = "id = '" . $id ."'";
+        
+        $data = $connection->getData("*", $this->tableName, "row", $where);
+
+        if(empty($data)){
+            
+            return Response::jsonResponse(false, "Home Residents Not Found");
+
+        }
+
+        $update = $connection->updateData($this->tableName, $requestdata, $where);
+
+        if($update){
+        
+            $resultData = $connection->getData("*", $this->tableName, "row", $where);
+            
+            return Response::jsonResponse(true, "Home Residents Updated Successfully", $resultData);
+
+        } else {
+        
+            return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
+        }
+
     }
 
 
@@ -123,41 +115,38 @@ class HomeResidents extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            if((int)$id > 0){
-
-                $where = "id = '" . $id ."'";
-                
-                $data = $connection->getData("*", $this->tableName, "row", $where);
-
-                if($data){
-
-                    $delete = $connection->deleteData($this->tableName, $where);
-
-                    if($delete){
-                        
-                        return Response::jsonResponse(true, "Home Residents Deleted Successfully", $resultData);
-
-                    } else {
-                    
-                        return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
-                    }
-                } else {
-                    
-                    return Response::jsonResponse(false, "Home Residents Not Found");
-                }
-
-            } else {
-                
-                return Response::jsonResponse(false, "Please Provide a Valid Id");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
         
         }
+            
+        if(empty((int)$id)){
+    
+            return Response::jsonResponse(false, "Please Provide a Valid Id");
+        }
+
+        $where = "id = '" . $id ."'";
+        
+        $data = $connection->getData("*", $this->tableName, "row", $where);
+
+        if(empty($data)){
+            
+            return Response::jsonResponse(false, "Home Residents Not Found");
+
+        }
+
+        $delete = $connection->deleteData($this->tableName, $where);
+
+        if($delete){
+            
+            return Response::jsonResponse(true, "Home Residents Deleted Successfully");
+
+        } else {
+        
+            return Response::jsonResponse(false, "Something Went Wrong, Please try again after some time");
+        }
+       
     }
 
     /* API For Delete Food Item */
@@ -166,33 +155,30 @@ class HomeResidents extends BaseController{
         
         $connection = $this->getDatabase();
 
-        if ($connection !== null) {
-            
-            if($id != ""){
-
-                $where = "id = '" . $id ."'";
-                
-                $data = $connection->getData("*", $this->tableName, "row", $where);
-
-                if($data){
-
-                    return Response::jsonResponse(true, "Home Residents Get Successfully", $data);
-
-                } else {
-                    
-                    return Response::jsonResponse(false, "Home Residents Not Found");
-                }
-
-            } else {
-                
-                return Response::jsonResponse(false, "Please Provide a Valid Id");
-            }
-
-        } else {
+        if ($connection === null) {
             
             return Response::jsonResponse(false, "Cannot perform database operations because the connection failed");
-        
+
         }
+            
+        if(empty($id)){
+            
+            return Response::jsonResponse(false, "Please Provide a Valid Id");
+
+        }
+
+        $where = "id = '" . $id ."'";
+        
+        $data = $connection->getData("*", $this->tableName, "row", $where);
+
+        if(empty($data)){
+            
+            return Response::jsonResponse(false, "Home Residents Not Found");
+
+        }
+
+        return Response::jsonResponse(true, "Home Residents Get Successfully", $data);
+
     }
 }
 
