@@ -25,9 +25,9 @@ class BaseController {
 
         if ($this->dbConnection !== null) {
 
-            $curdOperation = new CurdOperation($this->dbConnection);
+            $crud_operation = new CrudOperation($this->dbConnection);
 
-            return $curdOperation;
+            return $crud_operation;
 
         } else {
 

@@ -12,13 +12,14 @@ class Users extends BaseController {
     }
 
     public function loginUser($username, $password) {
-        $curdOperation = $this->getDatabase();
+
+        $connection = $this->getDatabase();
     
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             $where = "username = '" . $username ."'";
             
-            $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+            $data = $connection->getData("*", $this->tableName, "row", $where);
     
             if($data){
                 
@@ -27,7 +28,7 @@ class Users extends BaseController {
                 if (password_verify($password, $hashedPassword)) {
         
                     $columns = "id, name, username, email, contact";
-                    $userDetails = $curdOperation->getData($columns, $this->tableName, "row", $where);
+                    $userDetails = $connection->getData($columns, $this->tableName, "row", $where);
     
                     return Response::jsonResponse(true, "User Login Successfully", $userDetails);
         
@@ -54,15 +55,15 @@ class Users extends BaseController {
 
     public function getUserData($userId) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if($userId > 0){
 
                 $where = "id = '" . $userId ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
                     
@@ -88,23 +89,23 @@ class Users extends BaseController {
 
     public function updateUserData($requestdata, $userId) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if((int)$userId > 0){
 
                 $where = "id = '" . $userId ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 
-                    $update = $curdOperation->updateData($this->tableName, $requestdata, $where);
+                    $update = $connection->updateData($this->tableName, $requestdata, $where);
 
                     if($update){
                     
-                        $resultData = $curdOperation->getData("*", $this->tableName, "row", $where);
+                        $resultData = $connection->getData("*", $this->tableName, "row", $where);
                         
                         return Response::jsonResponse(true, "User Updated Successfully",$resultData);
 

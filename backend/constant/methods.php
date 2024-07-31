@@ -2,7 +2,7 @@
 
 require_once "database.php";
 
-class CurdOperation extends Database {
+class CrudOperation extends Database {
     private $conn;
 
     public function __construct($db) {

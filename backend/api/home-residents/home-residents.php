@@ -48,11 +48,11 @@ class HomeResidents extends BaseController{
 
     public function storeResidentsData($requestdata) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
-            $update = $curdOperation->insertData($this->tableName, $requestdata);
+            $update = $connection->insertData($this->tableName, $requestdata);
 
             if($update){
                 
@@ -76,23 +76,23 @@ class HomeResidents extends BaseController{
 
     public function updateResidentsData($requestdata, $id) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if((int)$id > 0){
 
                 $where = "id = '" . $id ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 
-                    $update = $curdOperation->updateData($this->tableName, $requestdata, $where);
+                    $update = $connection->updateData($this->tableName, $requestdata, $where);
 
                     if($update){
                     
-                        $resultData = $curdOperation->getData("*", $this->tableName, "row", $where);
+                        $resultData = $connection->getData("*", $this->tableName, "row", $where);
                         
                         return Response::jsonResponse(true, "Home Residents Updated Successfully", $resultData);
 
@@ -122,19 +122,19 @@ class HomeResidents extends BaseController{
 
     public function deleteResidentsData($id) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if((int)$id > 0){
 
                 $where = "id = '" . $id ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 
-                    $delete = $curdOperation->deleteData($this->tableName, $where);
+                    $delete = $connection->deleteData($this->tableName, $where);
 
                     if($delete){
                         
@@ -165,15 +165,15 @@ class HomeResidents extends BaseController{
 
     public function singleData($id) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if($id != ""){
 
                 $where = "id = '" . $id ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 

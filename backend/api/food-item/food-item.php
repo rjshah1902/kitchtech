@@ -54,11 +54,11 @@ class FoodItems extends BaseController{
 
     public function storeFoddItemData($requestdata) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
-            $update = $curdOperation->insertData($this->tableName, $requestdata);
+            $update = $connection->insertData($this->tableName, $requestdata);
 
             if($update){
                 
@@ -82,23 +82,23 @@ class FoodItems extends BaseController{
 
     public function updateFoddItemData($requestdata, $id) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if((int)$id > 0){
 
                 $where = "id = '" . $id ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 
-                    $update = $curdOperation->updateData($this->tableName, $requestdata, $where);
+                    $update = $connection->updateData($this->tableName, $requestdata, $where);
 
                     if($update){
                     
-                        $resultData = $curdOperation->getData("*", $this->tableName, "row", $where);
+                        $resultData = $connection->getData("*", $this->tableName, "row", $where);
                         
                         return Response::jsonResponse(true, "Food Item Updated Successfully", $resultData);
 
@@ -128,19 +128,19 @@ class FoodItems extends BaseController{
 
     public function deleteFoddItemData($id) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if((int)$id > 0){
 
                 $where = "id = '" . $id ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 
-                    $delete = $curdOperation->deleteData($this->tableName, $where);
+                    $delete = $connection->deleteData($this->tableName, $where);
 
                     if($delete){
                         
@@ -172,15 +172,15 @@ class FoodItems extends BaseController{
 
     public function singleData($id) {
         
-        $curdOperation = $this->getDatabase();
+        $connection = $this->getDatabase();
 
-        if ($curdOperation !== null) {
+        if ($connection !== null) {
             
             if($id != ""){
 
                 $where = "id = '" . $id ."'";
                 
-                $data = $curdOperation->getData("*", $this->tableName, "row", $where);
+                $data = $connection->getData("*", $this->tableName, "row", $where);
 
                 if($data){
 
