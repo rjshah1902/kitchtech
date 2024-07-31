@@ -57,14 +57,15 @@ if ($_GET['name'] === 'list') {
 }  else if ($_GET['name'] == 'store') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-        $food_name = $_POST['food_name'];
-
-        $food_category_id = $_POST['food_category_id'];
         
-        $food_type_id = $_POST['food_type_id'];
+        $food_name = validate_input($_POST['food_name'], '/^[a-zA-Z\s]+$/' , 'Food Name can only contain letters and spaces');  
         
-        $food_terminology_id = $_POST['food_terminology_id'];
+        $food_category_id = validate_input($_POST['food_category_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers');   
+        
+        $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
+        
+        $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers'); 
+        
 
         if (isset($food_name) && isset($food_category_id) && isset($food_type_id) && isset($food_terminology_id)) {
 
@@ -91,11 +92,15 @@ if ($_GET['name'] === 'list') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $food_name = $_POST['food_name'];
-        $food_category_id = $_POST['food_category_id'];
-        $food_type_id = $_POST['food_type_id'];
-        $food_terminology_id = $_POST['food_terminology_id'];
-        $id = $_POST['id'];
+        $food_name = validate_input($_POST['food_name'], '/^[a-zA-Z\s]+$/' , 'Food Name can only contain letters and spaces');  
+        
+        $food_category_id = validate_input($_POST['food_category_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers');   
+        
+        $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
+        
+        $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers'); 
+
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');  ;
 
         if (isset($food_name) && isset($food_category_id) && isset($food_type_id) && isset($food_terminology_id)) {
 
@@ -122,7 +127,7 @@ if ($_GET['name'] === 'list') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $id = $_POST['id'];
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');  ;
 
         if (isset($id)) {
 
