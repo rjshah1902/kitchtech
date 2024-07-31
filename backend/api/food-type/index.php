@@ -11,16 +11,16 @@ if ($_GET['name'] === 'list') {
             
         $loginResponse = $login->list();
 
-        echo $loginResponse;
+        return $loginResponse;
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else {
     
-   echo Response::jsonResponse(false, "API Not Found");
+   return Response::jsonResponse(false, "API Not Found");
 
 }
 

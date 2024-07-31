@@ -11,11 +11,11 @@ if ($_GET['name'] === 'list') {
 
         $loginResponse = $login->list();
 
-        echo $loginResponse;
+        return $loginResponse;
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'details') {
@@ -30,17 +30,17 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->singleData($id);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Valid Food Terminology Id");
+            return Response::jsonResponse(false, "Please provide Valid Food Terminology Id");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else if ($_GET['name'] == 'store') {
@@ -61,17 +61,17 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->storeFoodTerminologyData($array);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Name, Category, Food Type & Terminilogy Number");
+            return Response::jsonResponse(false, "Please provide Name, Category, Food Type & Terminilogy Number");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'update') {
@@ -94,17 +94,17 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->updateFoodTerminologyData($array, $id);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Name, Category, Food Type & Terminilogy Number");
+            return Response::jsonResponse(false, "Please provide Name, Category, Food Type & Terminilogy Number");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }  else if ($_GET['name'] == 'delete') {
@@ -119,22 +119,22 @@ if ($_GET['name'] === 'list') {
 
             $userData = $login->deleteFoodTerminologyData($id);
 
-            echo $userData;
+            return $userData;
 
         } else {
             
-            echo Response::jsonResponse(false, "Please provide Food Terminology Id");
+            return Response::jsonResponse(false, "Please provide Food Terminology Id");
         
         }
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 }   else {
     
-   echo Response::jsonResponse(false, "API Not Found");
+   return Response::jsonResponse(false, "API Not Found");
 
 }
 

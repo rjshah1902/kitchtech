@@ -63,7 +63,6 @@ if ($_GET['name'] === 'list') {
         $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
         
         $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers'); 
-        
 
         if (isset($food_name) && isset($food_category_id) && isset($food_type_id) && isset($food_terminology_id)) {
 
