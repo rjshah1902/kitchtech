@@ -28,7 +28,13 @@ const ManageNursingHomeResidents: React.FC = () => {
 
     const [formData, setFormData] = useState<HomeResidents>(formFielddata);
 
-    const btnText = "Add Home Residents";
+    let btnText: string;
+
+    if (id) {
+        btnText = "Update Home Residents";
+    } else {
+        btnText = "Add Home Residents";
+    }
 
     const [foodTerminologyList, setFoodTerminologyList] = useState([]);
     const [buttonText, setButtonText] = useState<string>(btnText);
@@ -49,7 +55,6 @@ const ManageNursingHomeResidents: React.FC = () => {
 
         if (status === true) {
             setFormData(data);
-            setButtonText("Update Home Residents");
         }
     };
 

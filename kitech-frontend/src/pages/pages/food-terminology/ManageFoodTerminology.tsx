@@ -29,7 +29,13 @@ const ManageFoodTerminology: React.FC = () => {
         id: id || '',
     };
 
-    const btnText = "Add Food Terminology";
+    let btnText: string;
+
+    if (id) {
+        btnText = "Update Food Terminology";
+    } else {
+        btnText = "Add Food Terminology";
+    }
 
     const [formData, setFormData] = useState<FootTerminology>(initialFormData);
     const [foodTypeList, setFoodTypeList] = useState<FoodType[]>([]);

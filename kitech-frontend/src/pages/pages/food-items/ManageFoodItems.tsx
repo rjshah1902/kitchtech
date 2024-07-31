@@ -30,7 +30,12 @@ const ManageFoodItems: React.FC = () => {
 
     const [formData, setFormData] = useState<FoodItem>(formFielddata);
 
-    const btnText = "Add Food Item";
+    let btnText: string;
+    if (id) {
+        btnText = "Update Food Item";
+    } else {
+        btnText = "Add Food Item";
+    }
 
     const [foodCategoryList, setFoodCategoryList] = useState([]);
     const [foodTerminologyList, setFoodTerminologyList] = useState([]);
