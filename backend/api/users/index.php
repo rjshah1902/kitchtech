@@ -1,8 +1,6 @@
 <?php
 
 require_once './users.php';
-require_once "./../response.php";
-require_once "./../validate_input.php";
 
 
 if ($_GET['name'] === 'login') {

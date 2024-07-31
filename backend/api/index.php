@@ -1,6 +1,8 @@
 <?php
 
 require_once "./../../constant/methods.php";
+require_once "response.php";
+require_once "validate_input.php";
 
 $allowed_origins = [
     "http://localhost:3000",

@@ -1,8 +1,6 @@
 <?php
 
 require_once './food-item.php';
-require_once "./../response.php";
-require_once "./../validate_input.php";
 
 
 if ($_GET['name'] === 'list') {
@@ -100,7 +98,7 @@ if ($_GET['name'] === 'list') {
         
         $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers'); 
 
-        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');  ;
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');
 
         if (isset($food_name) && isset($food_category_id) && isset($food_type_id) && isset($food_terminology_id)) {
 
@@ -127,7 +125,7 @@ if ($_GET['name'] === 'list') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');  ;
+        $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');
 
         if (isset($id)) {
 

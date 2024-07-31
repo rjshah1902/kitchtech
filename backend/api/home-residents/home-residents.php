@@ -1,7 +1,6 @@
 <?php
 
 require_once "./../index.php";
-require_once "./../response.php";
 
 class HomeResidents extends BaseController{
 

@@ -1,7 +1,6 @@
 <?php
 
 require_once './food-category.php';
-require_once "./../response.php";
 
 
 if ($_GET['name'] === 'list') {

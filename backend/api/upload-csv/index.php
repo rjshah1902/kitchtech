@@ -1,7 +1,6 @@
 <?php
 
 require_once './upload-csv.php';
-require_once "./../response.php";
 
 if ($_GET['name'] == 'upload-csv') {
 

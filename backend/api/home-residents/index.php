@@ -1,7 +1,6 @@
 <?php
 
 require_once './home-residents.php';
-require_once "./../response.php";
 
 
 if ($_GET['name'] === 'list') {
