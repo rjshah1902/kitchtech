@@ -8,16 +8,16 @@ if ($_GET['name'] == 'upload-csv') {
     
         $csvUploader = new UploadCSV();
         
-        echo $csvUploader->upload();
+        return $csvUploader->upload();
 
     } else {
         
-        echo Response::jsonResponse(false, "Request Method Not Allowed");
+        return Response::jsonResponse(false, "Request Method Not Allowed");
     }
 
 } else {
     
-   echo Response::jsonResponse(false, "API Not Found");
+   return Response::jsonResponse(false, "API Not Found");
 
 }
 
