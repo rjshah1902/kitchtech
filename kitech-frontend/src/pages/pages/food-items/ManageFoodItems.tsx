@@ -43,7 +43,7 @@ const ManageFoodItems: React.FC = () => {
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     useEffect(() => {
-        getFoodItemDetails();
+        (id) && getFoodItemDetails();
         getCategoryData();
         getTerminologyData();
     }, []);
@@ -58,8 +58,6 @@ const ManageFoodItems: React.FC = () => {
 
         if (status === true) {
             setFormData(data);
-
-            setButtonText("Update Food Item");
         }
     };
 

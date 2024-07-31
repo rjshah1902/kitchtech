@@ -44,7 +44,7 @@ const ManageFoodTerminology: React.FC = () => {
 
     useEffect(() => {
         getFoodTypeData();
-        getTerminologyData();
+        (id) && getTerminologyData();
     }, []);
 
     const getFoodTypeData = async () => {
@@ -64,7 +64,6 @@ const ManageFoodTerminology: React.FC = () => {
 
         if (status) {
             setFormData(data);
-            setButtonText("Update Food Terminology");
         }
     };
 

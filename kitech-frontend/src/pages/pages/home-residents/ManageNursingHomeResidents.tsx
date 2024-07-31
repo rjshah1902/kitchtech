@@ -41,7 +41,7 @@ const ManageNursingHomeResidents: React.FC = () => {
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     useEffect(() => {
-        getHomeResidentsDetails();
+        (id) && getHomeResidentsDetails();
         getTerminologyData();
     }, []);
 
