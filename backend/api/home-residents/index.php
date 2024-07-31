@@ -11,11 +11,11 @@ if ($_GET['name'] === 'list') {
 
     }
 
-    $login = new HomeResidents();
+    $details = new HomeResidents();
 
-    $loginResponse = $login->list();
+    $resultResponse = $details->list();
 
-    return $loginResponse;
+    return $resultResponse;
 
 }  
 
@@ -31,11 +31,11 @@ if ($_GET['name'] == 'details') {
 
     if (isset($id)) {
 
-        $login = new HomeResidents();
+        $details = new HomeResidents();
 
-        $userData = $login->singleData($id);
+        $hrd = $details->singleData($id);
 
-        return $userData;
+        return $hrd;
 
     } else {
         
@@ -63,11 +63,11 @@ if ($_GET['name'] == 'store') {
 
         $array = array('name'=>$name,'food_type_id'=>$food_type_id,'food_terminology_id'=>$food_terminology_id);
 
-        $login = new HomeResidents();
+        $details = new HomeResidents();
 
-        $userData = $login->storeResidentsData($array);
+        $hrd = $details->storeResidentsData($array);
 
-        return $userData;
+        return $hrd;
 
     } else {
         
@@ -97,11 +97,11 @@ if ($_GET['name'] == 'update') {
 
         $array = array('name'=>$name,'food_type_id'=>$food_type_id,'food_terminology_id'=>$food_terminology_id);
 
-        $login = new HomeResidents();
+        $details = new HomeResidents();
 
-        $userData = $login->updateResidentsData($array, $id);
+        $hrd = $details->updateResidentsData($array, $id);
 
-        return $userData;
+        return $hrd;
 
     } else {
         
