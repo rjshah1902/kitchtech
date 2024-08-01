@@ -24,7 +24,7 @@
 								},
 								{
 									"key": "password",
-									"value": "12345",
+									"value": "123456",
 									"type": "text"
 								}
 							]
@@ -73,6 +73,17 @@
 								{
 									"key": "email",
 									"value": "rjshah1902@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "rjshah",
 									"type": "text"
 								}
 							]
@@ -157,7 +168,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=list&search=",
+							"raw": "http://localhost/kitchtech/backend/api/food-item/index.php?name=list&search=test",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -176,7 +187,7 @@
 								},
 								{
 									"key": "search",
-									"value": ""
+									"value": "test"
 								}
 							]
 						}
@@ -232,7 +243,7 @@
 							"formdata": [
 								{
 									"key": "food_name",
-									"value": "Milk Shake",
+									"value": "Milk Shakes",
 									"type": "text"
 								},
 								{
@@ -285,7 +296,7 @@
 							"formdata": [
 								{
 									"key": "food_name",
-									"value": "Hello Mini",
+									"value": "Food Name",
 									"type": "text"
 								},
 								{
@@ -295,7 +306,7 @@
 								},
 								{
 									"key": "food_type_id",
-									"value": "1",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -343,7 +354,7 @@
 							"formdata": [
 								{
 									"key": "id",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								}
 							]
@@ -642,7 +653,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=details&food_item_id=1",
+							"raw": "http://localhost/kitchtech/backend/api/food-terminology/index.php?name=details&food_terminology_id=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -660,7 +671,7 @@
 									"value": "details"
 								},
 								{
-									"key": "food_item_id",
+									"key": "food_terminology_id",
 									"value": "1"
 								}
 							]
@@ -678,7 +689,7 @@
 							"formdata": [
 								{
 									"key": "terminology_name",
-									"value": "Hello Mini",
+									"value": "Hello World",
 									"type": "text"
 								},
 								{
@@ -726,7 +737,7 @@
 							"formdata": [
 								{
 									"key": "terminology_name",
-									"value": "Hello Mini 2",
+									"value": "Hello Mini ",
 									"type": "text"
 								},
 								{
@@ -741,7 +752,7 @@
 								},
 								{
 									"key": "id",
-									"value": "11",
+									"value": "13",
 									"type": "text"
 								}
 							]
@@ -779,7 +790,7 @@
 							"formdata": [
 								{
 									"key": "id",
-									"value": "11",
+									"value": "13",
 									"type": "text"
 								}
 							]
