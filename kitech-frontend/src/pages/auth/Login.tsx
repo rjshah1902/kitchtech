@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
-import PostMethod from '../../apiCalls/PostMethod';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../store/userSlice';
 
 const Login: React.FC = () => {
 
@@ -21,20 +23,20 @@ const Login: React.FC = () => {
     const [buttonText, setButtonText] = useState<string>("Login");
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
+    const dispatch = useDispatch<any>();
+
     const formHandler = async (e: any) => {
         e.preventDefault();
         setButtonDisabled(true);
-
-        const url = "users/index.php?name=login";
 
         const formData = new FormData();
         formData.append('username', username);
         formData.append('password', password);
 
-        let response = await PostMethod(url, formData);
+        let response = await dispatch(loginUser(formData));
 
         if (response) {
-            const { status, message, data } = response;
+            const { status, message, data } = response.payload;
             if (status === true) {
                 let userData = JSON.stringify(data);
                 localStorage.setItem("userData", userData);

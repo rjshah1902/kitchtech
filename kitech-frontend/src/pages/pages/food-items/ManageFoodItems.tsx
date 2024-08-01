@@ -13,7 +13,7 @@ interface FoodItem {
     food_category_id: string;
     food_type_id: string;
     food_terminology_id: string;
-    id: any;
+    id: string;
 };
 
 interface FoodItemsProps {
@@ -31,7 +31,7 @@ const ManageFoodItems: React.FC<FoodItemsProps> = ({ refreshList }) => {
         food_category_id: '',
         food_type_id: '',
         food_terminology_id: '',
-        id: id
+        id: id || ''
     }
 
     const [formData, setFormData] = useState<FoodItem>(formFielddata);
