@@ -7,7 +7,7 @@ if ($_GET['name'] === 'login') {
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-        $username = validate_input($_POST['username'], '/^[a-zA-Z\s]+$/' , 'Name can only contain letters and spaces');  
+        $username = validate_input($_POST['username'], '/^[a-zA-Z0-9\s]+$/' , 'Name can only contain letters and spaces');  
         
         $password = $_POST['password'];
 
