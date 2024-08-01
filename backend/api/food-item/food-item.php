@@ -26,7 +26,7 @@ class FoodItems extends BaseController{
         
         if (!empty($search)) {
             
-            $where .= " AND " . $this->tableName . ".food_name LIKE '%" . $connection->escapeString($search) . "%'";
+            $where .= " AND " . $this->tableName . ".food_name LIKE '%" . trim($search) . "%'";
         
         }
     
