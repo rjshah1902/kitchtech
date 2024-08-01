@@ -1,6 +1,7 @@
 <?php
 
 require_once './food-terminology.php';
+require_once './terminology-mode.php';
 
 
 if ($_GET['name'] === 'list') {
@@ -53,19 +54,13 @@ if ($_GET['name'] == 'store') {
     
     }
     
-    $terminology_name = validate_input($_POST['terminology_name'], '/^[a-zA-Z\s]+$/' , 'Terminology Name can only contain letters and spaces');  
-    
-    $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
-    
-    $terminology_number = validate_input($_POST['terminology_number'], '/^[0-9]+$/' , 'Terminology Number can only contain Numbers'); 
+    $terminologyData = prepareTerminologyData($_POST);
 
-    if (isset($terminology_name)  && isset($food_type_id) && isset($terminology_number)) {
-
-        $array = array('terminology_name'=>$terminology_name, 'food_type_id'=>$food_type_id,'terminology_number'=>$terminology_number);
+    if (isset($terminologyData)) {
 
         $login = new FoodTerminology();
 
-        $userData = $login->storeFoodTerminologyData($array);
+        $userData = $login->storeFoodTerminologyData($terminologyData);
 
         return $userData;
 
@@ -85,22 +80,16 @@ if ($_GET['name'] == 'update') {
         return Response::jsonResponse(false, "Request Method Not Allowed");
     
     }
-    
-    $terminology_name = validate_input($_POST['terminology_name'], '/^[a-zA-Z\s]+$/' , 'Terminology Name can only contain letters and spaces');  
-    
-    $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
-    
-    $terminology_number = validate_input($_POST['terminology_number'], '/^[0-9]+$/' , 'Terminology Number can only contain Numbers'); 
+
+    $terminologyData = prepareTerminologyData($_POST);
     
     $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Terminology Id can only contain Numbers'); 
 
-    if (isset($terminology_name)  && isset($food_type_id) && isset($terminology_number)) {
-
-        $array = array('terminology_name'=>$terminology_name, 'food_type_id'=>$food_type_id,'terminology_number'=>$terminology_number);
+    if (isset($terminologyData)) {
 
         $login = new FoodTerminology();
 
-        $userData = $login->updateFoodTerminologyData($array, $id);
+        $userData = $login->updateFoodTerminologyData($terminologyData, $id);
 
         return $userData;
 
