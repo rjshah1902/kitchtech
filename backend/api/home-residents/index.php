@@ -1,6 +1,7 @@
 <?php
 
 require_once './home-residents.php';
+require_once './home-residents-model.php';
 
 
 if ($_GET['name'] === 'list') {
@@ -53,19 +54,13 @@ if ($_GET['name'] == 'store') {
 
     }
     
-    $name = validate_input($_POST['name'], '/^[a-zA-Z\s]+$/' , 'Home Residents Name can only contain letters and spaces');  
-    
-    $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
-    
-    $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Terminology can only contain Numbers');  
+    $homeResidentsData = prepareHomeResidentsData($_POST);
 
-    if (isset($name) && isset($food_type_id) && isset($food_terminology_id)) {
-
-        $array = array('name'=>$name,'food_type_id'=>$food_type_id,'food_terminology_id'=>$food_terminology_id);
-
+    if (isset($homeResidentsData)) {
+        
         $details = new HomeResidents();
 
-        $hrd = $details->storeResidentsData($array);
+        $hrd = $details->storeResidentsData($homeResidentsData);
 
         return $hrd;
 
@@ -85,21 +80,15 @@ if ($_GET['name'] == 'update') {
 
     }
     
-    $name = validate_input($_POST['name'], '/^[a-zA-Z\s]+$/' , 'Home Residents can only contain letters and spaces');  
-    
-    $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
-    
-    $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Terminology can only contain Numbers');  
-    
-    $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Home Residents Id can only contain Numbers');  
+    $homeResidentsData = prepareHomeResidentsData($_POST);
 
-    if (isset($name) && isset($food_type_id) && isset($food_terminology_id)) {
+    $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Home Residents Id can only contain Numbers');
 
-        $array = array('name'=>$name,'food_type_id'=>$food_type_id,'food_terminology_id'=>$food_terminology_id);
-
+    if (isset($homeResidentsData)) {
+          
         $details = new HomeResidents();
 
-        $hrd = $details->updateResidentsData($array, $id);
+        $hrd = $details->updateResidentsData($homeResidentsData, $id);
 
         return $hrd;
 

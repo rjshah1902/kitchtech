@@ -1,7 +1,7 @@
 <?php
 
 require_once './food-terminology.php';
-require_once './terminology-mode.php';
+require_once './terminology-model.php';
 
 
 if ($_GET['name'] === 'list') {
