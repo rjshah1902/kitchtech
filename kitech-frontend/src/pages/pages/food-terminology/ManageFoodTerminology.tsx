@@ -128,7 +128,11 @@ const ManageFoodTerminology: React.FC<ManageFoodTerminologyProps> = ({ refreshLi
                                 <div>
                                     <label htmlFor="food_type_id">Food Category</label>
 
-                                    <SelectTag inputValue={formData.food_type_id} handleInputChange={handleInputChange} inputName={'food_type_id'} selectArray={foodTypeList} />
+                                    <SelectTag inputValue={formData.food_type_id} handleInputChange={handleInputChange} inputName={'food_type_id'} selectArray={
+                                        foodTypeList.map((data) => (
+                                            <option key={data.id} value={data.id}>{data.name}</option>
+                                        ))
+                                    } />
                                 </div>
 
                                 <div className="mt-7">

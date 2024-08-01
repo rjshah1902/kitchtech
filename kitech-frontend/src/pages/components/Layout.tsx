@@ -20,7 +20,7 @@ const Layout = () => {
                 <Route element={<PrivateRoutes />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/food-items" element={<FoodItems />} />
-                    <Route path="/food-items/:id" element={<EditFoodItems />} />
+                    <Route path="/food-items/:id" element={<EditFoodItems refreshList={function (): void { }} />} />
                     <Route path="/food-terminology" element={<FoodTerminology />} />
                     <Route path="/food-terminology/:id" element={<EditFoodTerminology refreshList={function (): void { }} />} />
                     <Route path="/home-residents" element={<NursingHomeResidents />} />

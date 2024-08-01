@@ -7,6 +7,7 @@ import FoodItemList from './FoodItemList';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import ManageFoodItems from './ManageFoodItems';
+import InputTag from '../../components/InputTag';
 
 
 const FoodItems: React.FC = () => {
@@ -76,7 +77,7 @@ const FoodItems: React.FC = () => {
 
                 {/* Add Food Item Section Start */}
 
-                <ManageFoodItems />
+                <ManageFoodItems refreshList={getFoodItemData} />
 
                 {/* Add Food Item Section End */}
 
@@ -87,7 +88,13 @@ const FoodItems: React.FC = () => {
                         <form onSubmit={searchFoodItem} method="post" autoComplete={"off"}>
                             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-4">
                                 <div>
-                                    <input type="text" required className='flex w-full rounded-md border border-gray-300  px-3 py-3 text-sm  focus:outline-none focus:ring-1focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2' placeholder='Food Name' name='searchData' value={searchData} onChange={(e: any) => setSearchData(e.target.value)} />
+                                    <InputTag
+                                        inputType={'text'}
+                                        inputValue={searchData}
+                                        handleInputChange={(e: any) => setSearchData(e.target.value)}
+                                        inputName={'searchData'}
+                                        inputLabel={'Food Name'} />
+
                                 </div>
                                 <div className='mt-2'>
                                     <button type='submit' className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2 font-semibold leading-7 text-white hover:bg-black/80">

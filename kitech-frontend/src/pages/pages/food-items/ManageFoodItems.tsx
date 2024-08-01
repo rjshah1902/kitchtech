@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import PostMethod from '../../../apiCalls/PostMethod';
 import GetMethod from '../../../apiCalls/GetMethod';
 import { useNavigate, useParams } from 'react-router-dom';
+import InputTag from '../../components/InputTag';
+import SelectTag from '../../components/SelectTag';
 
 interface FoodItem {
     food_name: string;
@@ -14,7 +16,11 @@ interface FoodItem {
     id: any;
 };
 
-const ManageFoodItems: React.FC = () => {
+interface FoodItemsProps {
+    refreshList: () => void;
+}
+
+const ManageFoodItems: React.FC<FoodItemsProps> = ({ refreshList }) => {
 
     const { id } = useParams();
 
@@ -43,9 +49,9 @@ const ManageFoodItems: React.FC = () => {
     const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     useEffect(() => {
-        (id) && getFoodItemDetails();
         getCategoryData();
         getTerminologyData();
+        (id) && getFoodItemDetails();
     }, []);
 
     const getFoodItemDetails = async () => {
@@ -88,17 +94,15 @@ const ManageFoodItems: React.FC = () => {
     }
 
     const formHandler = async (e: any) => {
+
         e.preventDefault();
+
         setButtonText("Loading...");
+
         setButtonDisabled(true);
 
-        let url = "food-item/index.php?";
+        const url = id ? "food-item/index.php?name=update" : "food-item/index.php?name=store";
 
-        if (id) {
-
-            url += "name=update";
-
-        } else { url += "name=store"; }
 
         const requesData = new FormData();
         requesData.append('food_name', formData.food_name);
@@ -116,6 +120,7 @@ const ManageFoodItems: React.FC = () => {
                     setButtonDisabled(false);
                     setFormData(formFielddata);
                     toast.success(message);
+                    refreshList();
                     navigate("/food-items");
                 } else {
                     toast.error(message);
@@ -152,27 +157,33 @@ const ManageFoodItems: React.FC = () => {
                                 <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-4 ">
                                     <div>
                                         <label htmlFor="">Food Name</label>
-                                        <input type="text" required className='flex h-10 w-full rounded-md border border-gray-300  px-3 py-2 text-sm  focus:outline-none focus:ring-1focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2' placeholder='Food Name' name='food_name' value={formData.food_name} onChange={(e: any) => setFormData((prev) => ({ ...prev, food_name: e.target.value }))} />
+
+                                        <InputTag inputType={'text'} inputValue={formData.food_name} handleInputChange={(e: any) => setFormData((prev) => ({ ...prev, food_name: e.target.value }))} inputName={'food_name'} inputLabel={'Food Name'} />
                                     </div>
                                     <div>
                                         <label htmlFor="">Food Category</label>
-                                        <select className='flex h-10 w-full rounded-md border border-gray-300  px-3 py-2 text-sm  focus:outline-none focus:ring-1focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2' name='food_category_id' value={formData.food_category_id} onChange={(e: any) => setFormData((prev) => ({ ...prev, food_category_id: e.target.value }))} >
-                                            <option value="" selected disabled> -- Select -- </option>
-                                            {
+
+                                        <SelectTag
+                                            inputValue={formData.food_category_id}
+                                            handleInputChange={(e: any) => setFormData((prev) => ({ ...prev, food_category_id: e.target.value }))}
+                                            inputName={'food_category_id'}
+                                            selectArray={
                                                 foodCategoryList.map((data: { id: string, category_name: string }, index) => <option key={index} value={data?.id}>{data.category_name}</option>)
-                                            }
-                                        </select>
+                                            } />
                                     </div>
                                     <div>
                                         <label htmlFor="">Food Terminology</label>
-                                        <select className='flex h-10 w-full rounded-md border border-gray-300  px-3 py-2 text-sm  focus:outline-none focus:ring-1focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2' name='food_terminology_id' value={formData.food_terminology_id} onChange={(e: any) => updateFoodTerminology(e)} >
-                                            <option value="" selected disabled> -- Select -- </option>
-                                            {
+
+                                        <SelectTag
+                                            inputValue={formData.food_terminology_id}
+                                            handleInputChange={(e: any) => updateFoodTerminology(e)}
+                                            inputName={'food_terminology_id'}
+                                            selectArray={
                                                 foodTerminologyList.map((data: { id: string, food_type_id: string, terminology_name: string }, index) =>
                                                     <option key={index} value={data?.id} data-typeId={data?.food_type_id}>{data.terminology_name}</option>)
-                                            }
-                                        </select>
+                                            } />
                                     </div>
+
                                     <div className='mt-7'>
                                         <button type='submit' className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-1.5 font-semibold leading-7 text-white hover:bg-black/80" disabled={buttonDisabled} >
                                             {buttonText}
