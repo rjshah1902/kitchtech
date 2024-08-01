@@ -35,9 +35,11 @@ const ManageFoodTerminology: React.FC<ManageFoodTerminologyProps> = ({ refreshLi
         id: id || '',
     };
 
+    const btnText: String = id ? "Update Food Terminology" : "Add Food Terminology";
+
     const [formData, setFormData] = useState<FoodTerminology>(initialFormData);
     const [foodTypeList, setFoodTypeList] = useState<FoodType[]>([]);
-    const [buttonState, setButtonState] = useState({ text: id ? "Update Food Terminology" : "Add Food Terminology", disabled: false });
+    const [buttonState, setButtonState] = useState({ text: btnText, disabled: false });
 
     useEffect(() => {
 
@@ -83,7 +85,7 @@ const ManageFoodTerminology: React.FC<ManageFoodTerminologyProps> = ({ refreshLi
 
             const { status, message } = await PostMethod(url, requestData);
 
-            setButtonState({ text: id ? "Update Food Terminology" : "Add Food Terminology", disabled: false });
+            setButtonState({ text: btnText, disabled: false });
 
             if (status) {
                 setFormData(initialFormData);
@@ -94,7 +96,7 @@ const ManageFoodTerminology: React.FC<ManageFoodTerminologyProps> = ({ refreshLi
                 toast.error(message);
             }
         } else {
-            setButtonState({ text: id ? "Update Food Terminology" : "Add Food Terminology", disabled: false });
+            setButtonState({ text: btnText, disabled: false });
             toast.error("Please Provide Food Name");
         }
     };

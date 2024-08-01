@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import PostMethod from '../../../apiCalls/PostMethod';
 import GetMethod from '../../../apiCalls/GetMethod';
 import { useNavigate, useParams } from 'react-router-dom';
+import InputTag from '../../components/InputTag';
+import SelectTag from '../../components/SelectTag';
 
 interface HomeResidents {
     name: string;
@@ -13,7 +15,11 @@ interface HomeResidents {
     id: any;
 };
 
-const ManageNursingHomeResidents: React.FC = () => {
+interface HomeResidentsProps {
+    refreshList: () => void;
+}
+
+const ManageNursingHomeResidents: React.FC<HomeResidentsProps> = ({ refreshList }) => {
 
     const { id } = useParams();
 
@@ -28,13 +34,7 @@ const ManageNursingHomeResidents: React.FC = () => {
 
     const [formData, setFormData] = useState<HomeResidents>(formFielddata);
 
-    let btnText: string;
-
-    if (id) {
-        btnText = "Update Home Residents";
-    } else {
-        btnText = "Add Home Residents";
-    }
+    let btnText: string = id ? "Update Home Residents" : "Add Home Residents";
 
     const [foodTerminologyList, setFoodTerminologyList] = useState([]);
     const [buttonText, setButtonText] = useState<string>(btnText);
@@ -76,14 +76,7 @@ const ManageNursingHomeResidents: React.FC = () => {
         setButtonText("Loading...");
         setButtonDisabled(true);
 
-        let url = "home-residents/index.php";
-
-        if (id) {
-            url += "?name=update";
-        } else {
-            url += "?name=store";
-        }
-
+        const url = id ? "home-residents/index.php?name=update" : "home-residents/index.php?name=store";
 
         const requesData = new FormData();
         requesData.append('name', formData.name);
@@ -100,6 +93,7 @@ const ManageNursingHomeResidents: React.FC = () => {
                     setButtonDisabled(false);
                     setFormData(formFielddata);
                     toast.success(message);
+                    refreshList();
                     navigate("/home-residents");
                 } else {
                     toast.error(message);
@@ -135,17 +129,24 @@ const ManageNursingHomeResidents: React.FC = () => {
                             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
                                 <div>
                                     <label htmlFor="">Name</label>
-                                    <input type="text" required className='flex h-10 w-full rounded-md border border-gray-300  px-3 py-2 text-sm  focus:outline-none focus:ring-1focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2' placeholder='Name' name='name' value={formData.name} onChange={(e: any) => setFormData((prev) => ({ ...prev, name: e.target.value }))} />
+
+                                    <InputTag
+                                        inputType={'text'}
+                                        inputValue={formData.name}
+                                        handleInputChange={(e: any) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                                        inputName={'name'}
+                                        inputLabel={'Name'} />
                                 </div>
                                 <div>
                                     <label htmlFor="">Food Terminology</label>
-                                    <select className='flex h-10 w-full rounded-md border border-gray-300  px-3 py-2 text-sm  focus:outline-none focus:ring-1focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2' name='food_terminology_id' value={formData.food_terminology_id} onChange={(e: any) => updateFoodTerminology(e)} >
-                                        <option value="" selected disabled> -- Select -- </option>
-                                        {
+                                    <SelectTag
+                                        inputValue={formData.food_terminology_id}
+                                        handleInputChange={(e: any) => updateFoodTerminology(e)}
+                                        inputName={'food_terminology_id'}
+                                        selectArray={
                                             foodTerminologyList.map((data: { id: string, food_type_id: string, terminology_name: string }, index) =>
                                                 <option key={index} value={data?.id} data-typeId={data?.food_type_id}>{data.terminology_name}</option>)
-                                        }
-                                    </select>
+                                        } />
                                 </div>
                                 <div className='mt-7'>
                                     <button type='submit' className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-1.5 font-semibold leading-7 text-white hover:bg-black/80" disabled={buttonDisabled} >

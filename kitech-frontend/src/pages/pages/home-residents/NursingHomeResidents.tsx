@@ -64,7 +64,7 @@ const NursingHomeResidents: React.FC = () => {
 
                 {/* Add Home Residents Section Start */}
 
-                <ManageNursingHomeResidents />
+                <ManageNursingHomeResidents refreshList={getFoodItemData} />
 
                 {/* Add Home Residents Section End */}
 
