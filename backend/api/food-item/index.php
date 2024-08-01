@@ -1,6 +1,7 @@
 <?php
 
 require_once './food-item.php';
+require_once './food-item-model.php';
 
 
 if ($_GET['name'] === 'list') {
@@ -58,21 +59,13 @@ if ($_GET['name'] == 'store') {
         return Response::jsonResponse(false,"Request Method Not Allowed");
     }
         
-    $food_name = validate_input($_POST['food_name'], '/^[a-zA-Z\s]+$/' , 'Food Name can only contain letters and spaces');  
-    
-    $food_category_id = validate_input($_POST['food_category_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers');   
-    
-    $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
-    
-    $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers'); 
+    $foodItem = prepareFoodItemData($_POST);
 
-    if (isset($food_name) && isset($food_category_id) && isset($food_type_id) && isset($food_terminology_id)) {
-
-        $array = array('food_name'=>$food_name,'food_category_id'=>$food_category_id,'food_type_id'=>$food_type_id,'food_terminology_id'=>$food_terminology_id);
+    if (isset($foodItem['food_name']) && isset($foodItem['food_category_id']) && isset($foodItem['food_type_id']) && isset($foodItem['food_terminology_id'])) {
 
         $check = new FoodItems();
 
-        $returnData = $check->storeFoddItemData($array);
+        $returnData = $check->storeFoddItemData($foodItem);
 
         return $returnData;
 
@@ -92,23 +85,15 @@ if ($_GET['name'] == 'update') {
         return Response::jsonResponse(false,"Request Method Not Allowed");
     }
     
-    $food_name = validate_input($_POST['food_name'], '/^[a-zA-Z\s]+$/' , 'Food Name can only contain letters and spaces');  
-    
-    $food_category_id = validate_input($_POST['food_category_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers');   
-    
-    $food_type_id = validate_input($_POST['food_type_id'], '/^[0-9]+$/' , 'Food Type can only contain Numbers');  
-    
-    $food_terminology_id = validate_input($_POST['food_terminology_id'], '/^[0-9]+$/' , 'Food Category can only contain Numbers'); 
+    $foodItem = prepareFoodItemData($_POST);
 
     $id = validate_input($_POST['id'], '/^[0-9]+$/' , 'Food Item Id can only contain Numbers');
 
-    if (isset($food_name) && isset($food_category_id) && isset($food_type_id) && isset($food_terminology_id)) {
-
-        $array = array('food_name'=>$food_name,'food_category_id'=>$food_category_id,'food_type_id'=>$food_type_id,'food_terminology_id'=>$food_terminology_id);
+    if (isset($foodItem)) {
 
         $login = new FoodItems();
 
-        $userData = $login->updateFoddItemData($array, $id);
+        $userData = $login->updateFoddItemData($foodItem, $id);
 
         return $userData;
 
