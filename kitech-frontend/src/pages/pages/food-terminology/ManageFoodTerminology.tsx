@@ -4,81 +4,74 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { toast } from "react-toastify";
 import PostMethod from '../../../apiCalls/PostMethod';
 import GetMethod from '../../../apiCalls/GetMethod';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import InputTag from '../../components/InputTag';
+import SelectTag from '../../components/SelectTag';
 
 interface FoodType {
     id: string;
     name: string;
 }
 
-interface FootTerminology {
+interface ManageFoodTerminologyProps {
+    refreshList: () => void;
+}
+
+interface FoodTerminology {
     terminology_name: string;
     terminology_number: string;
     food_type_id: string;
     id: string;
 }
 
-const ManageFoodTerminology: React.FC = () => {
+const ManageFoodTerminology: React.FC<ManageFoodTerminologyProps> = ({ refreshList }) => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const initialFormData: FootTerminology = {
+    const initialFormData: FoodTerminology = {
         terminology_name: '',
         terminology_number: '',
         food_type_id: '',
         id: id || '',
     };
 
-    let btnText: string;
-
-    if (id) {
-        btnText = "Update Food Terminology";
-    } else {
-        btnText = "Add Food Terminology";
-    }
-
-    const [formData, setFormData] = useState<FootTerminology>(initialFormData);
+    const [formData, setFormData] = useState<FoodTerminology>(initialFormData);
     const [foodTypeList, setFoodTypeList] = useState<FoodType[]>([]);
-    const [buttonText, setButtonText] = useState<string>(btnText);
-    const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+    const [buttonState, setButtonState] = useState({ text: id ? "Update Food Terminology" : "Add Food Terminology", disabled: false });
 
     useEffect(() => {
+
         getFoodTypeData();
-        (id) && getTerminologyData();
-    }, []);
+
+        if (id) getTerminologyData();
+
+    }, [id]);
 
     const getFoodTypeData = async () => {
-        const url = "food-type/index.php?name=list";
-        const result = await GetMethod(url);
-        const { status, data } = result;
 
-        if (status) {
-            setFoodTypeList(data);
-        }
+        const url = "food-type/index.php?name=list";
+
+        const { status, data } = await GetMethod(url);
+
+        if (status) setFoodTypeList(data);
     };
 
     const getTerminologyData = async () => {
-        const url = `food-terminology/index.php?name=details&food_terminology_id=${id}`;
-        const result = await GetMethod(url);
-        const { status, data } = result;
 
-        if (status) {
-            setFormData(data);
-        }
+        const url = `food-terminology/index.php?name=details&food_terminology_id=${id}`;
+
+        const { status, data } = await GetMethod(url);
+
+        if (status) setFormData(data);
     };
 
     const formHandler = async (e: FormEvent<HTMLFormElement>) => {
+
         e.preventDefault();
-        setButtonText("Loading...");
-        setButtonDisabled(true);
 
-        let url = "food-terminology/index.php";
+        setButtonState({ text: "Loading...", disabled: true });
 
-        if (id) {
-            url += "?name=update";
-        } else {
-            url += "?name=store";
-        }
+        const url = id ? "food-terminology/index.php?name=update" : "food-terminology/index.php?name=store";
 
         const requestData = new FormData();
         requestData.append('terminology_name', formData.terminology_name);
@@ -87,29 +80,22 @@ const ManageFoodTerminology: React.FC = () => {
         requestData.append('id', formData.id);
 
         if (formData.terminology_name.trim()) {
-            const response = await PostMethod(url, requestData);
-            if (response) {
-                const { status, message } = response;
-                setButtonText("Update Food Terminology");
 
-                if (status) {
-                    setButtonDisabled(false);
-                    setFormData(initialFormData);
-                    toast.success(message);
-                    navigate("/food-terminology");
-                } else {
-                    toast.error(message);
-                    setButtonDisabled(false);
-                }
+            const { status, message } = await PostMethod(url, requestData);
+
+            setButtonState({ text: id ? "Update Food Terminology" : "Add Food Terminology", disabled: false });
+
+            if (status) {
+                setFormData(initialFormData);
+                toast.success(message);
+                refreshList();
+                navigate("/food-terminology");
             } else {
-                setButtonText("Update Food Terminology");
-                toast.error("Please try again");
-                setButtonDisabled(false);
+                toast.error(message);
             }
         } else {
-            setButtonText("Update Food Terminology");
+            setButtonState({ text: id ? "Update Food Terminology" : "Add Food Terminology", disabled: false });
             toast.error("Please Provide Food Name");
-            setButtonDisabled(false);
         }
     };
 
@@ -126,50 +112,32 @@ const ManageFoodTerminology: React.FC = () => {
                     <div className="bg-gray-100 py-4 px-4 mt-4 rounded-lg">
                         <form onSubmit={formHandler} method="post" autoComplete="off">
                             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-4">
+
                                 <div>
                                     <label htmlFor="terminology_name">Terminology Name</label>
-                                    <input
-                                        type="text"
-                                        required
-                                        className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
-                                        placeholder="Terminology Name"
-                                        name="terminology_name"
-                                        value={formData.terminology_name}
-                                        onChange={handleInputChange}
-                                    />
+
+                                    <InputTag inputType="text" inputName="terminology_name" inputLabel="Terminology Name" inputValue={formData.terminology_name} handleInputChange={handleInputChange} />
                                 </div>
+
                                 <div>
                                     <label htmlFor="terminology_number">Food Terminology No.</label>
-                                    <input
-                                        type="number"
-                                        required
-                                        className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
-                                        placeholder="Food Terminology No."
-                                        name="terminology_number"
-                                        value={formData.terminology_number}
-                                        onChange={handleInputChange}
-                                        min={0}
-                                    />
+
+                                    <InputTag inputType="number" inputName="terminology_number" inputLabel="Food Terminology No." inputValue={formData.terminology_number} handleInputChange={handleInputChange} />
                                 </div>
+
                                 <div>
                                     <label htmlFor="food_type_id">Food Category</label>
-                                    <select
-                                        className="flex h-10 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50 mt-2"
-                                        name="food_type_id"
-                                        value={formData.food_type_id}
-                                        onChange={handleInputChange}
-                                    >
-                                        <option value="" disabled> -- Select -- </option>
-                                        {foodTypeList.map((data) => (
-                                            <option key={data.id} value={data.id}>{data.name}</option>
-                                        ))}
-                                    </select>
+
+                                    <SelectTag inputValue={formData.food_type_id} handleInputChange={handleInputChange} inputName={'food_type_id'} selectArray={foodTypeList} />
                                 </div>
+
                                 <div className="mt-7">
-                                    <button type="submit"
+                                    <button
+                                        type="submit"
                                         className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-1.5 font-semibold leading-7 text-white hover:bg-black/80"
-                                        disabled={buttonDisabled}>
-                                        {buttonText}
+                                        disabled={buttonState.disabled}
+                                    >
+                                        {buttonState.text}
                                     </button>
                                 </div>
                             </div>
@@ -178,7 +146,7 @@ const ManageFoodTerminology: React.FC = () => {
                 </div>
             </div>
         </section>
-    )
+    );
 };
 
 export default ManageFoodTerminology;

@@ -34,8 +34,7 @@ const FoodTerminology: React.FC = () => {
             <section className="mx-auto w-full max-w-7xl px-4 py-4 mb-20">
 
                 {/* Add Food Terminology Section Start */}
-
-                <ManageFoodTerminology />
+                <ManageFoodTerminology refreshList={getFoodItemData} />
 
                 {/* Add Food Terminology Section End */}
 

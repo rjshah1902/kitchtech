@@ -22,7 +22,7 @@ const Layout = () => {
                     <Route path="/food-items" element={<FoodItems />} />
                     <Route path="/food-items/:id" element={<EditFoodItems />} />
                     <Route path="/food-terminology" element={<FoodTerminology />} />
-                    <Route path="/food-terminology/:id" element={<EditFoodTerminology />} />
+                    <Route path="/food-terminology/:id" element={<EditFoodTerminology refreshList={function (): void { }} />} />
                     <Route path="/home-residents" element={<NursingHomeResidents />} />
                     <Route path="/home-residents/:id" element={<EditNursingHomeResidents />} />
                     <Route path="/upload-csv" element={<UploadCsv />} />
