@@ -1,9 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { persistor } from '../../store';
+import { logout } from '../../store/userSlice';
 
 const Header: React.FC = () => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [useLogedIn, setUseLogedIn] = useState<boolean>(false);
@@ -21,9 +26,11 @@ const Header: React.FC = () => {
         setUserName(data?.username);
     }
 
-    const logout = () => {
+    const userLogout = () => {
         localStorage.removeItem("userData");
-        navigate("/login");
+        dispatch(logout());
+        persistor.purge();
+        navigate('/login');
     }
 
     const menuItems = [
@@ -72,7 +79,7 @@ const Header: React.FC = () => {
                                     <button type='button' className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black" >
                                         Hello, {userName}
                                     </button>
-                                    <button type='button' onClick={logout} className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ml-2">
+                                    <button type='button' onClick={userLogout} className="rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black ml-2">
                                         Logout
                                     </button>
                                 </>

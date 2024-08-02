@@ -160,7 +160,7 @@ const ManageFoodItems: React.FC<FoodItemsProps> = ({ refreshList }) => {
 
                                         <SelectTag
                                             inputValue={formData.food_category_id}
-                                            handleInputChange={(e: any) => setFormData((prev) => ({ ...prev, food_category_id: e.target.value }))}
+                                            handleInputChange={(e) => setFormData((prev) => ({ ...prev, food_category_id: e.target.value }))}
                                             inputName={'food_category_id'}
                                             selectArray={
                                                 foodCategoryList.map((data: { id: string, category_name: string }, index) => <option key={index} value={data?.id}>{data.category_name}</option>)
@@ -171,7 +171,7 @@ const ManageFoodItems: React.FC<FoodItemsProps> = ({ refreshList }) => {
 
                                         <SelectTag
                                             inputValue={formData.food_terminology_id}
-                                            handleInputChange={(e: any) => updateFoodTerminology(e)}
+                                            handleInputChange={(e) => updateFoodTerminology(e)}
                                             inputName={'food_terminology_id'}
                                             selectArray={
                                                 foodTerminologyList.map((data: { id: string, food_type_id: string, terminology_name: string }, index) =>

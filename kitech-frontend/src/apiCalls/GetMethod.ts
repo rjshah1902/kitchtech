@@ -7,25 +7,25 @@ interface ApiResponse {
     data: any;
 }
 
-const GetMethod =  async (url: string): Promise<ApiResponse>=>{
+const GetMethod = async (url: string): Promise<ApiResponse> => {
 
     const config = {
-        url: baseUrl+ url,
+        url: baseUrl + url,
         method: "GET",
     };
 
-    try{
+    try {
 
         const response = await axios.request(config);
 
         const result = response.data;
 
-        return {status: result.status, message: result.message ,data: result.data};
+        return { status: result.status, message: result.message, data: result.data };
 
-    }catch(error){
+    } catch (error) {
 
         console.log("Error: " + error);
-        return {status: false, message: error, data: []};
+        return { status: false, message: error, data: [] };
     }
 
 }

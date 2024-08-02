@@ -1,29 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../store/userSlice';
+import InputTag from '../components/InputTag';
 
 const Login: React.FC = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch<any>();
+    const { user } = useSelector((state: any) => state.user);
+    const [username, setUserName] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [buttonText] = useState<string>("Login");
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
     const [redirectUser, setRedirectUser] = useState<boolean>(false);
 
     useEffect(() => {
+        if (user && localStorage.getItem("userData")) {
+            navigate("/");
+        }
         localStorage.getItem("userData") && setRedirectUser(true);
-    }, []);
+    }, [user, navigate]);
 
     if (redirectUser === true) { navigate("/"); }
 
-    const [username, setUserName] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [buttonText, setButtonText] = useState<string>("Login");
-    const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-
-    const dispatch = useDispatch<any>();
 
     const formHandler = async (e: any) => {
         e.preventDefault();
@@ -35,19 +38,13 @@ const Login: React.FC = () => {
 
         let response = await dispatch(loginUser(formData));
 
-        if (response) {
-            const { status, message, data } = response.payload;
-            if (status === true) {
-                let userData = JSON.stringify(data);
-                localStorage.setItem("userData", userData);
-                toast.success(message);
-                navigate("/");
-            } else {
-                toast.error(message);
-                setButtonDisabled(false);
-            }
+        const { status, message } = response.payload;
+
+        if (status === true) {
+            toast.success(message);
+            navigate("/");
         } else {
-            toast.error("Please try again");
+            toast.error(message);
             setButtonDisabled(false);
         }
     }
@@ -56,7 +53,6 @@ const Login: React.FC = () => {
         <section>
             <div className="flex flex-col items-center justify-center h-dvh">
                 <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-
                     <h2 className="text-center text-2xl font-bold leading-tight text-black">
                         User Sign In
                     </h2>
@@ -67,13 +63,12 @@ const Login: React.FC = () => {
                                     Username
                                 </label>
                                 <div className="mt-2">
-                                    <input
-                                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                                        type="text"
-                                        placeholder="Username"
-                                        value={username}
-                                        onChange={(e) => setUserName(e.target.value)}
-                                    ></input>
+                                    <InputTag
+                                        inputType={'text'}
+                                        inputValue={username}
+                                        handleInputChange={(e) => setUserName(e.target.value)}
+                                        inputName={'username'}
+                                        inputLabel={'Username'} />
                                 </div>
                             </div>
                             <div>
@@ -83,13 +78,12 @@ const Login: React.FC = () => {
                                     </label>
                                 </div>
                                 <div className="mt-2">
-                                    <input
-                                        className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                                        type="password"
-                                        placeholder="Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    ></input>
+                                    <InputTag
+                                        inputType={'password'}
+                                        inputValue={password}
+                                        handleInputChange={(e) => setPassword(e.target.value)}
+                                        inputName={'password'}
+                                        inputLabel={'Password'} />
                                 </div>
                             </div>
                             <div>
