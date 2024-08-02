@@ -27,11 +27,6 @@ class CrudOperation extends Database {
 
         $result->execute();
 
-        if (!$result) {
-            echo "Error in query: " . mysqli_error($this->conn);
-            return null;
-        }
-
         if ($dataType == 'row') {
             
             /* Get Single Row Data From The Database */
